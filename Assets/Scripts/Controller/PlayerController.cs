@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+
 
     public float speed = 10;
 
@@ -28,10 +31,6 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("velocity", velocity.magnitude);
 
         rigidbody.velocity = velocity.normalized * speed;
-    }
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 }
