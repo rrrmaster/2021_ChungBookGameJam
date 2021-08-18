@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private Rigidbody2D rigidbody;
-
-    [SerializeField]
-    private Animator animator;
-
+    [SerializeField] private Rigidbody2D rigid;
+    [SerializeField] private Animator animator;
 
     public float speed = 10;
 
@@ -21,17 +16,13 @@ public class PlayerController : MonoBehaviour
 
         Observable.EveryLateUpdate().Subscribe(_ => Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10));
     }
+
     private void Move(Vector2 velocity)
     {
         animator.SetFloat("x", velocity.x);
         animator.SetFloat("y", velocity.y);
         animator.SetFloat("velocity", velocity.magnitude);
 
-        rigidbody.velocity = velocity.normalized * speed;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
+        rigid.velocity = velocity.normalized * speed;
     }
 }
