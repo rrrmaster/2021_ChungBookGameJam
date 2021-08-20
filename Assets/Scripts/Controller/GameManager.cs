@@ -28,9 +28,18 @@ public class GameManager : MonoBehaviour
             box.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.5f);
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && cropTileMap.HasTile(new Vector3Int(pos.x, pos.y, 0)) )
         {
-            if (cropTileMap.HasTile(new Vector3Int(pos.x, pos.y, 0)) && !crops.ContainsKey(pos))
+            if (crops.ContainsKey(pos))
+            {
+                var crop = crops[pos];
+                if(crop.IsRipening.Value)
+                {
+                    Destroy(crop.gameObject);       
+                    crops.Remove(pos);
+                }
+            }
+            else
             {
                 var a = Instantiate(crop, vector3 - new Vector3(0, 0.5f), Quaternion.identity);
                 crops.Add(pos, a);
@@ -43,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var item in crops)
         {
-            item.Value.grow.Value += 1;
+            item.Value.Grow.Value += 1;
         }
         gamePresenter.NextDay();
     }

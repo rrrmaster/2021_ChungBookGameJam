@@ -1,5 +1,6 @@
 using UnityEngine;
 using UniRx;
+using UnityEngine.SceneManagement;
 
 public class MainPresenter : MonoBehaviour
 {
@@ -15,9 +16,9 @@ public class MainPresenter : MonoBehaviour
         optionView.CloseButton.OnClickAsObservable().Subscribe(_ => OnClickOptionViewCloseButton());
     }
 
-    private void OnClickGameStartButton()
+    private  void OnClickGameStartButton()
     {
-
+        SceneManager.LoadScene("Game");
     }
 
     private void OnClickOptionButton()

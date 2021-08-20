@@ -1,21 +1,35 @@
 using System;
 using UniRx;
 using UnityEngine;
-public class GamePresenter : MonoBehaviour
+using Zenject;
+
+public class GamePresenter : IInitializable, IDisposable
 {
-    public GameView gameView;
-    public GameModel gameModel;
+    private readonly GameView gameView;
+    private readonly GameModel gameModel;
+    
+    private readonly CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public void Awake()
+    public GamePresenter(GameView gameView, GameModel gameModel)
     {
-        gameModel = new GameModel();
+        this.gameView = gameView;
+        this.gameModel = gameModel;
+    }
 
+    public void Initialize()
+    {
         gameModel.Gold.Subscribe(gold => gameView.GoldText = gold);
         gameModel.Date.Subscribe(date => gameView.DateText = date);
+        gameModel.Season.Subscribe(season => gameView.SeasonText = season);
     }
 
     public void NextDay()
     {
         gameModel.NextDay();
+    }
+
+    public void Dispose()
+    {
+        compositeDisposable.Dispose();
     }
 }
