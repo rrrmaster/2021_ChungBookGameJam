@@ -106,7 +106,7 @@ public class DialogPanel : MonoBehaviour
             //해당 트랜스폼에 해당하는 상대좌표로 변경해준다.
             Vector3 tPos = textTransform.TransformPoint(pos);
 
-            dialogText.transform.DOShakePosition(0.2f, 3f);
+            dialogText.transform.DOShakePosition(0.1f, 3f);
             if (clickToNext)
             {
                 dialogText.maxVisibleCharacters = totalVisibleChar;
