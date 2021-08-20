@@ -1,10 +1,12 @@
 using UnityEngine;
 using UniRx;
+using System.Collections.Generic;
 
 public class MainPresenter : MonoBehaviour
 {
     [SerializeField] private MainView mainView;
     [SerializeField] private OptionView optionView;
+    public InGameView inGameView;
 
     private void Start()
     {
@@ -34,4 +36,5 @@ public class MainPresenter : MonoBehaviour
     {
         optionView.gameObject.SetActive(false);
     }
+
 }
