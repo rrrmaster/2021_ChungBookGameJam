@@ -29,26 +29,35 @@ public class Monster : MonoBehaviour
     [SerializeField] private EMonsterState monsterState = new EMonsterState(); //현제 상태\
     private SpriteRenderer spriteRenderer;
 
+    private Transform target;
     private Vector3 randDir = Vector3.zero;
+
     private float dirChangeTimeChecker = 0;
+    private float attackTimeChecker = 0;
 
     private void Start()
     {
         Substantialization();
+        Initialization();
     }
 
     private void Update()
     {
+        attackTimeChecker += Time.deltaTime;
+        dirChangeTimeChecker += Time.deltaTime;
         switch (monsterState)
         {
             case EMonsterState.Idle:
                 OnIdleState();
+                CheckRange();
                 break;
             case EMonsterState.Chase:
                 OnChaseState();
+                CheckRange();
                 break;
             case EMonsterState.Attack:
                 OnAttackState();
+                CheckRange();
                 break;
             case EMonsterState.Dead:
                 OnDeadState();
@@ -58,7 +67,6 @@ public class Monster : MonoBehaviour
 
     private void OnIdleState()
     {
-        dirChangeTimeChecker += Time.deltaTime;
         if (dirChangeTimeChecker > 5f)
         {
             SetRandomDirection();
@@ -70,12 +78,16 @@ public class Monster : MonoBehaviour
 
     private void OnChaseState()
     {
-
+        MoveToTarget();
     }
 
     private void OnAttackState()
     {
-
+        if (attackTimeChecker <= attackSpeed)
+        {
+            //TODO 어택
+            attackTimeChecker = 0;
+        }
     }
 
     private void OnDeadState()
@@ -100,6 +112,10 @@ public class Monster : MonoBehaviour
     {
         curHealth = maxHealth;
         monsterState = EMonsterState.Idle;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+
+        SetRandomDirection();
     }
 
     private void SetRandomDirection()
@@ -118,6 +134,29 @@ public class Monster : MonoBehaviour
         //transform.position = new Vector3(x, y, 0);
     }
 
+    private void MoveToTarget()
+    {
+        FlipSprite(target.position);
+        transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+    }
+
+    private void CheckRange()
+    {
+        if ((transform.position - target.position).sqrMagnitude < attackRange * attackRange)
+        {
+            monsterState = EMonsterState.Attack;
+        }
+        else if ((transform.position - target.position).sqrMagnitude < chaseRange * chaseRange)
+        {
+            monsterState = EMonsterState.Chase;
+        }
+        else
+        {
+            monsterState = EMonsterState.Idle;
+        }
+    }
+
+
     public void OnDamage(float damage) // 피해를 받는 기능
     {
         if (!(monsterState == EMonsterState.Dead))
@@ -135,5 +174,15 @@ public class Monster : MonoBehaviour
     {
         if (transform.position.x > target.x) spriteRenderer.flipX = true;
         else spriteRenderer.flipX = false;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
