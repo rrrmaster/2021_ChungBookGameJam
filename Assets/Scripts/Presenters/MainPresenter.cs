@@ -1,13 +1,18 @@
 using UnityEngine;
 using UniRx;
 using UnityEngine.SceneManagement;
+using Zenject;
 
-public class MainPresenter : MonoBehaviour
+public class MainPresenter: IInitializable
 {
-    [SerializeField] private MainView mainView;
-    [SerializeField] private OptionView optionView;
+    [Inject]
+    private MainView mainView;
 
-    private void Start()
+    [Inject]
+    private OptionView optionView;
+
+
+    public void Initialize()
     {
         mainView.StartButton.OnClickAsObservable().Subscribe(_ => OnClickGameStartButton());
         mainView.OptionButton.OnClickAsObservable().Subscribe(_ => OnClickOptionButton());
@@ -15,7 +20,6 @@ public class MainPresenter : MonoBehaviour
 
         optionView.CloseButton.OnClickAsObservable().Subscribe(_ => OnClickOptionViewCloseButton());
     }
-
     private  void OnClickGameStartButton()
     {
         SceneManager.LoadScene("Game");
@@ -35,4 +39,6 @@ public class MainPresenter : MonoBehaviour
     {
         optionView.gameObject.SetActive(false);
     }
+
+
 }
