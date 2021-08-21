@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 84fe6ace3bfd01844b6445bbc7ef8840
+guid: be94bf858fbc57d4b8c4932c56d343e8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4004981323987347463
-    second: goblin_idle_0
+      213: -4178046375966092550
+    second: 4_0
   - first:
-      213: 1188879964842525537
-    second: goblin_idle_1
+      213: 8982099749623107299
+    second: 4_1
   - first:
-      213: 8869205000577459251
-    second: goblin_idle_2
+      213: -2214249495721929474
+    second: 4_2
   - first:
-      213: -6950601958726238420
-    second: goblin_idle_3
+      213: 7945056504642708236
+    second: 4_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -127,7 +127,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: goblin_idle_0
+      name: 4_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,14 +141,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f719a384b27b68c0800000000000000
-      internalID: -4004981323987347463
+      spriteID: af2de6115f89406c0800000000000000
+      internalID: -4178046375966092550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_idle_1
+      name: 4_1
       rect:
         serializedVersion: 2
         x: 64
@@ -162,14 +162,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16384017700cf7010800000000000000
-      internalID: 1188879964842525537
+      spriteID: 3ee09611224d6ac70800000000000000
+      internalID: 8982099749623107299
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_idle_2
+      name: 4_2
       rect:
         serializedVersion: 2
         x: 128
@@ -183,14 +183,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 334a98bf4feb51b70800000000000000
-      internalID: 8869205000577459251
+      spriteID: ef41863b0d76541e0800000000000000
+      internalID: -2214249495721929474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_idle_3
+      name: 4_3
       rect:
         serializedVersion: 2
         x: 192
@@ -204,8 +204,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2ffcfa28508a8f90800000000000000
-      internalID: -6950601958726238420
+      spriteID: c03a2a7dbc2824e60800000000000000
+      internalID: 7945056504642708236
       vertices: []
       indices: 
       edges: []

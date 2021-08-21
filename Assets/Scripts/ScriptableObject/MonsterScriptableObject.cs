@@ -8,7 +8,7 @@ public class MonsterScriptableObject : ScriptableObject
     [Header("이름")] [SerializeField] private string fullName;
     [Header("최대체력")] [SerializeField] private float maxHealth;
     [Header("공격력")] [SerializeField] private float attackPower;
-    [Header("공격속도")] [SerializeField] private float attackSpeed;
+    [Header("공격속도")] [SerializeField] private float attackDelay;
     [Header("공격범위")] [SerializeField] private float attackRange;
     [Header("추격범위")] [SerializeField] private float chaseRange;
     [Header("이동속도")] [SerializeField] private float moveSpeed;
@@ -18,7 +18,7 @@ public class MonsterScriptableObject : ScriptableObject
     public string FullName => fullName;
     public float MaxHealth => maxHealth;
     public float AttackPower => attackPower;
-    public float AttackSpeed => attackSpeed;
+    public float AttackDelay => attackDelay;
     public float AttackRange => attackRange;
     public float ChaseRange => chaseRange;
     public float MoveSpeed => moveSpeed;

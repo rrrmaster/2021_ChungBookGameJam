@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 0a12d73c6f2173f44a3dd104d0426825
+guid: aa1c0cc100d84ae40ae7e5b75ddd6d7c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3182166843491242930
-    second: goblin_dead_0
+      213: -6470460504253458178
+    second: 3_0
   - first:
-      213: 2724111423850757173
-    second: goblin_dead_1
+      213: 6623151957235123224
+    second: 3_1
   - first:
-      213: -2374912440958660178
-    second: goblin_dead_2
+      213: 2161284124966242572
+    second: 3_2
   - first:
-      213: -256086913269119495
-    second: goblin_dead_3
+      213: 1646375367856145251
+    second: 3_3
   - first:
-      213: -1170529905418792989
-    second: goblin_dead_4
+      213: -6250598388044826599
+    second: 3_4
   - first:
-      213: 2716057253750445153
-    second: goblin_dead_5
+      213: -6045798420381719288
+    second: 3_5
   - first:
-      213: 6453347565135440739
-    second: goblin_dead_6
+      213: 3486365374980857469
+    second: 3_6
   - first:
-      213: 1620309645970348890
-    second: goblin_dead_7
+      213: -8897148225897683382
+    second: 3_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: goblin_dead_0
+      name: 3_0
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b3525262e3592c20800000000000000
-      internalID: 3182166843491242930
+      spriteID: ef817ce047e4436a0800000000000000
+      internalID: -6470460504253458178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_dead_1
+      name: 3_1
       rect:
         serializedVersion: 2
         x: 64
@@ -174,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53c353338ecfdc520800000000000000
-      internalID: 2724111423850757173
+      spriteID: 814ce683d992aeb50800000000000000
+      internalID: 6623151957235123224
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_dead_2
+      name: 3_2
       rect:
         serializedVersion: 2
         x: 128
@@ -195,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea1d000c7bd9a0fd0800000000000000
-      internalID: -2374912440958660178
+      spriteID: c09cd4fe57c6efd10800000000000000
+      internalID: 2161284124966242572
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_dead_3
+      name: 3_3
       rect:
         serializedVersion: 2
         x: 192
@@ -216,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f5c7f62f42327cf0800000000000000
-      internalID: -256086913269119495
+      spriteID: 363c4089ca919d610800000000000000
+      internalID: 1646375367856145251
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_dead_4
+      name: 3_4
       rect:
         serializedVersion: 2
         x: 256
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ef8a84b04171cfe0800000000000000
-      internalID: -1170529905418792989
+      spriteID: 91875f612e96149a0800000000000000
+      internalID: -6250598388044826599
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_dead_5
+      name: 3_5
       rect:
         serializedVersion: 2
         x: 320
@@ -258,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1641b679eaf51b520800000000000000
-      internalID: 2716057253750445153
+      spriteID: 805a7816e52091ca0800000000000000
+      internalID: -6045798420381719288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_dead_6
+      name: 3_6
       rect:
         serializedVersion: 2
         x: 384
@@ -279,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36ba7005b65ee8950800000000000000
-      internalID: 6453347565135440739
+      spriteID: d7e94f446de026030800000000000000
+      internalID: 3486365374980857469
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_dead_7
+      name: 3_7
       rect:
         serializedVersion: 2
         x: 448
@@ -300,8 +300,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5b933ac90f7c7610800000000000000
-      internalID: 1620309645970348890
+      spriteID: a462f51e3daf68480800000000000000
+      internalID: -8897148225897683382
       vertices: []
       indices: 
       edges: []
