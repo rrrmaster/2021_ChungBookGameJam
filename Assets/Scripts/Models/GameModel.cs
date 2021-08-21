@@ -7,6 +7,7 @@ using Zenject;
 public class GameModel
 {
     public ReactiveProperty<int> Gold { get; set; }
+    public ReactiveProperty<int> Health { get; set; }
     public ReactiveProperty<bool> IsUseItem{ get; set; }
     public ReactiveProperty<DateTime> Date { get; set; }
     public ReadOnlyReactiveProperty<Season> Season { get; set; }
@@ -22,6 +23,7 @@ public class GameModel
         Items = new ReactiveDictionary<Vector2Int, Item>();
         StockItems = new ReactiveCollection<StockItemModel>();
            Gold = new ReactiveProperty<int>(1000);
+        Health = new ReactiveProperty<int>(5);
         Date = new ReactiveProperty<DateTime>(new DateTime(100, 1, 1,6,0,0));
         ItemObjects = Resources.LoadAll<ItemObject>("Items");
         CropObjects = Resources.LoadAll<CropObject>("Crops");

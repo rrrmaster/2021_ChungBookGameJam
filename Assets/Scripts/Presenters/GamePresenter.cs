@@ -36,8 +36,11 @@ public class GamePresenter : IInitializable, IDisposable
         gameModel.Date.Subscribe(date => gameView.ClockImage = date);
         gameModel.Season.Subscribe(season => gameView.SeasonText = season);
         gameModel.Season.Subscribe(season => gameView.SeasonPanel = season);
+        gameModel.Health.Subscribe(health => gameView.SetHealth(health));
 
         gameView.OnShopClick.Subscribe(_ => OnShopShow());
+        gameView.OnDungeonClick.Subscribe(_ => OnDungeonShow());
+
         gameModel.Items.ObserveAdd().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottom(p));
         gameModel.Items.ObserveRemove().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottom(p));
         gameModel.Items.ObserveReplace().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottomChanged(p));
@@ -166,11 +169,16 @@ public class GamePresenter : IInitializable, IDisposable
             gameModel.IsUseItem.Value = true;
         }
     }
-
     private void OnShopShow()
     {
         SoundManager.Instance.PlayFXSound("Popup");
         shopView.gameObject.SetActive(true);
+    }
+    private void OnDungeonShow()
+    {
+        Debug.Log("dsasad");    
+        SoundManager.Instance.PlayFXSound("Popup");
+        GameObject.FindObjectOfType<DungeonManager>().OnClickDungeonButton();
     }
     private void OnInventoryShow()
     {
@@ -186,6 +194,7 @@ public class GamePresenter : IInitializable, IDisposable
 
     private void NewMethod()
     {
+        gameModel.Health.Value = 5;
         foreach (var item in map)
         {
             Crop crop = item.Value.GetComponent<Crop>();

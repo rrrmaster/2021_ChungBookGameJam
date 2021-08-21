@@ -30,6 +30,11 @@ public class CalendarPresenter : IInitializable, IDisposable
         gameModel.Date.Subscribe(p => calendarView.dayText.text = p.ToString("yyy³â MM¿ù"));
         gameModel.Season.Subscribe(p => calendarView.calendarImage.sprite = calendarView.calendarSeason[v[p]]);
     }
+
+    public void ShowCalendar()
+    {
+        calendarView.gameObject.SetActive(true);
+    }
     public void Dispose()
     {
         compositeDisposable.Dispose();

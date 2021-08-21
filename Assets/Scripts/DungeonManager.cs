@@ -19,11 +19,11 @@ public class DungeonManager : MonoBehaviour
     private void Start()
     {
         monsterSpawner = GetComponent<MonsterSpawner>();
-        OnClickDungeonButton();
     }
 
     public void OnClickDungeonButton()
     {
+        Debug.Log("sadas");
         StartCoroutine(StartStage());
     }
 
@@ -65,6 +65,7 @@ public class DungeonManager : MonoBehaviour
 
     public void QuitDungeon()
     {
+        monsterList.ForEach(p=>Destroy(p.gameObject));
         monsterList.Clear();
 
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();

@@ -12,7 +12,7 @@ public class MonsterSpawner : MonoBehaviour
     private void Awake()
     {
         CacheMonsterDic();
-        MakeMonster(0, 20, new Vector3(1.5f, -6), new Vector3(18, 1.5f));
+        //MakeMonster(0, 20, new Vector3(1.5f, -6), new Vector3(18, 1.5f));
     }
 
     public Monster[] MakeMonster(int id, int count, Vector3 minXY, Vector3 maxXY)

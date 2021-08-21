@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isDead = false;
     [Inject]
-    private GameModel gameModel;
+    public GameModel gameModel;
 
     [Inject]
     private GamePresenter gamePresenter;
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             if (washingTimeChecker >= 1.5f)
             {
+                SoundManager.Instance.PlayFXSound("Water");
                 animator.SetTrigger("Washing");
                 washingTimeChecker = 0;
                 var playerPos = transform.position;
@@ -78,6 +79,7 @@ public class PlayerController : MonoBehaviour
         {
             if (attackTimeChecker >= attackDelay)
             {
+                SoundManager.Instance.PlayFXSound("Attack");
                 //TODO 어택
                 animator.SetTrigger("Attack");
                 attackTimeChecker = 0;
@@ -141,14 +143,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnDamage(float damage) // 피해를 받는 기능
     {
-        if (!isDead)
+        gameModel.Health.Value -= 1;
+        if(gameModel.Health.Value==0)
         {
-            curHealth -= damage;
-            if (curHealth <= 0 /*&!dead*/)
-            {
-                //TODO 사망
-                isDead = true;
-            }
+            FindObjectOfType<DungeonManager>().QuitDungeon();
+            gamePresenter.NextDay();
         }
     }
 }
