@@ -17,7 +17,8 @@ MonoBehaviour:
   SellItemID: 41
   BasePrice: 100
   Name: "\uC124\uC778\uC5F4\uB9E4"
-  Description: 
+  Description: "\uACA8\uC6B8 \uC791\uBB3C, 10\uC77C \uD6C4 \uC218\uD655\uD560 \uC218
+    \uC788\uC2B5\uB2C8\uB2E4.\r"
   Seasons: 8
   HarvestSeasons: 8
   Icon: {fileID: -4384379988036074178, guid: a2398a483d9812544817f98368d78d73, type: 3}
