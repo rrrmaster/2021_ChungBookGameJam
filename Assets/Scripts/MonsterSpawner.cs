@@ -15,7 +15,7 @@ public class MonsterSpawner : MonoBehaviour
         MakeMonster(0, 20, new Vector3(1.5f, -6), new Vector3(18, 1.5f));
     }
 
-    private Monster[] MakeMonster(int id, int count, Vector3 minXY, Vector3 maxXY)
+    public Monster[] MakeMonster(int id, int count, Vector3 minXY, Vector3 maxXY)
     {
         Monster[] monsters = new Monster[count];
 

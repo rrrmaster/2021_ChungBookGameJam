@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public enum EMonsterState
 {
@@ -45,6 +46,8 @@ public class Monster : MonoBehaviour
     private bool flipOrigin;
     private bool isScriptableObjectInit = false;
 
+    public UnityEvent deathEvent;
+
     public void InitializeScriptableObject(MonsterScriptableObject scriptableObject)
     {
         monsterScriptableObject = scriptableObject;
@@ -67,6 +70,7 @@ public class Monster : MonoBehaviour
             {
                 monsterState = EMonsterState.Dead;
                 StartCoroutine(OnDead());
+                deathEvent?.Invoke();
                 //TODO 사망
             }
         }
