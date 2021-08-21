@@ -17579,7 +17579,7 @@ MonoBehaviour:
   m_AssetsPPU: 24
   m_RefResolutionX: 640
   m_RefResolutionY: 360
-  m_UpscaleRT: 1
+  m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0
   m_CropFrameY: 0
@@ -26225,7 +26225,7 @@ SpriteRenderer:
   m_SortingLayerID: 1810331411
   m_SortingLayer: 1
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7152930139536384079, guid: 8763a26e0c1cd0b48980518ba9c0d2c1, type: 3}
+  m_Sprite: {fileID: -8123634538662038333, guid: 20d1d2dd7a8582740a6b21702a20ebd0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

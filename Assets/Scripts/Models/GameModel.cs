@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -11,14 +12,14 @@ public class GameModel
     public ReadOnlyReactiveProperty<Season> Season { get; set; }
     public ReactiveDictionary<Vector2Int, Item> Items { get; set; }
 
-    public ItemObject[] itemObjects;
+    public readonly ItemObject[] ItemObjects;
     public GameModel()
     {
         IsUseItem = new ReactiveProperty<bool>(false);
         Items = new ReactiveDictionary<Vector2Int, Item>();
         Gold = new ReactiveProperty<int>(1000);
         Date = new ReactiveProperty<DateTime>(new DateTime(100, 1, 1));
-        itemObjects = Resources.LoadAll<ItemObject>("Items");
+        ItemObjects = Resources.LoadAll<ItemObject>("Items");
         Season = Date.Select(value => (Season)((value.Month - 1) % 4)).ToReadOnlyReactiveProperty();
     }
 

@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 19
   ItemID: 22
+  BasePrice: 0
   Name: "\uC218\uC815\uD3EC\uB3C4"
   Description: 
   Seasons: 0
   HarvestSeasons: 3
-  Icon: {fileID: 2749703584677109874, guid: a2398a483d9812544817f98368d78d73, type: 3}
-  Animation: []
+  Icon: {fileID: -3083152358856762077, guid: a2398a483d9812544817f98368d78d73, type: 3}
+  Animation:
+  - {fileID: 21300104, guid: bd6d25ec0c12bab4b9a7ff3896042b11, type: 3}
+  - {fileID: 21300112, guid: bd6d25ec0c12bab4b9a7ff3896042b11, type: 3}

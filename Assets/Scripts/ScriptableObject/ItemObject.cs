@@ -9,4 +9,7 @@ public class ItemObject : ScriptableObject
     public int ID;
     public string Name;
     public Sprite Icon;
+
+    public bool IsCrop;
+    public int CropID;
 }

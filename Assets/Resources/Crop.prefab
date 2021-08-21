@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2219010044576904095}
   - component: {fileID: 1512069762213004024}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Crop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512069762213004027}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.905, y: -0.192, z: 92.44654}
+  m_LocalPosition: {x: -9, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -119,5 +119,5 @@ MonoBehaviour:
   - {fileID: 21300834, guid: 18fbfed32221c94429a999342d70d592, type: 3}
   - {fileID: 21300836, guid: 18fbfed32221c94429a999342d70d592, type: 3}
   maxGrow: 12
-  grow:
+  Grow:
     value: 0

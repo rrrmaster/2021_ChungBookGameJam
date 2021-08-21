@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -19,6 +20,7 @@ public class GamePresenter : IInitializable, IDisposable
         this.gameModel = gameModel;
         this.shopView = shopView;
         this.inventoryView = inventoryView;
+        map = new Dictionary<Vector2Int, GameObject>();
         compositeDisposable = new CompositeDisposable();
 
     }
@@ -33,6 +35,7 @@ public class GamePresenter : IInitializable, IDisposable
 
         gameView.OnShopClick.Subscribe(_ => OnShopShow());
         gameModel.Items.ObserveAdd().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottom(p));
+        gameModel.Items.ObserveRemove().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottom(p));
         gameModel.Items.ObserveReplace().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottomChanged(p));
 
 
@@ -62,20 +65,35 @@ public class GamePresenter : IInitializable, IDisposable
         gameView.Box.position = vector3;
         gameView.Box.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.5f);
     }
+
+    public Dictionary<Vector2Int, GameObject> map;
+
     private void SetCrop()
     {
         var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var pos = new Vector2Int(Mathf.FloorToInt(mouse.x + 0.5f), Mathf.FloorToInt(mouse.y - 0.5f));
-        var item = gameModel.Items[new Vector2Int(number, 0)];
-        if(item.Count > 1 )
+        var pos = new Vector2(Mathf.FloorToInt(mouse.x + 0.5f) + 0.5f, Mathf.FloorToInt(mouse.y - 0.5f));
+        var key = new Vector2Int(Mathf.FloorToInt(mouse.x + 0.5f) , Mathf.FloorToInt(mouse.y - 0.5f));
+        if(!map.ContainsKey(key))
         {
-            item.Count -= 1;
-            gameModel.Items[new Vector2Int(number, 0)] = item;
+            Vector2Int vector2Int = new Vector2Int(number, 0);
+            var item = gameModel.Items[vector2Int];
+            var crop = GameObject.Instantiate(Resources.Load<GameObject>("Crop"), new Vector3(pos.x, pos.y),Quaternion.identity);
+            var id = gameModel.ItemObjects[item.ID].CropID;
+            crop.GetComponent<Crop>().SetData(id);
+            map.Add(key, crop);
+            if (item.Count > 1)
+            {
+                item.Count -= 1;
+                gameModel.Items[vector2Int] = item;
+            }
+            else
+            {
+                gameModel.Items.Remove(vector2Int);
+                gameModel.IsUseItem.Value = false;
+            }
+
         }
-        else
-        {
-            gameModel.Items.Remove(new Vector2Int(number, 0));
-        }
+
         Debug.Log(number);
 
     }

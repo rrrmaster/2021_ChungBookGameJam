@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
 
     private void Move(Vector2 velocity)
     {
+        if(velocity.sqrMagnitude> 0)
+        {
+            transform.GetChild(0).transform.localScale = new Vector3(-Mathf.Sign(velocity.x), 1);
+        }
         animator.SetFloat("x", velocity.x);
         animator.SetFloat("y", velocity.y);
         animator.SetFloat("velocity", velocity.magnitude);
