@@ -1,28 +1,16 @@
 fileFormatVersion: 2
-guid: 0d20b4cd53f4756469b14ede748284e2
+guid: 12e8be2b269a2084fa42e734aed9b18d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1510828076388047741
-    second: skeleton_attack_0
+      213: -1708997961419951014
+    second: skeleton_idle_0
   - first:
-      213: 1640409911530616572
-    second: skeleton_attack_1
+      213: 2148123082584908
+    second: skeleton_idle_1
   - first:
-      213: 6469868488227890111
-    second: skeleton_attack_2
-  - first:
-      213: -6659220382827945446
-    second: skeleton_attack_3
-  - first:
-      213: 4270615373946321350
-    second: skeleton_attack_4
-  - first:
-      213: 1047996867268445003
-    second: skeleton_attack_5
-  - first:
-      213: 5220361428149632244
-    second: skeleton_attack_6
+      213: -3835917868862761571
+    second: skeleton_idle_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -136,148 +124,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: skeleton_attack_0
+      name: skeleton_idle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
+        width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.83, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38424368ed5780be0800000000000000
-      internalID: -1510828076388047741
+      spriteID: a5472b3a86b6848e0800000000000000
+      internalID: -1708997961419951014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: skeleton_attack_1
+      name: skeleton_idle_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 64
         y: 0
-        width: 96
+        width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.83, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf6ffce8f18e3c610800000000000000
-      internalID: 1640409911530616572
+      spriteID: c437541e4b1a70000800000000000000
+      internalID: 2148123082584908
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: skeleton_attack_2
+      name: skeleton_idle_2
       rect:
         serializedVersion: 2
-        x: 192
+        x: 128
         y: 0
-        width: 96
+        width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.83, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb321587c1799c950800000000000000
-      internalID: 6469868488227890111
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_attack_3
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 0
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.83, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a12ef780852b593a0800000000000000
-      internalID: -6659220382827945446
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_attack_4
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.83, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6c974605e06444b30800000000000000
-      internalID: 4270615373946321350
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_attack_5
-      rect:
-        serializedVersion: 2
-        x: 480
-        y: 0
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.83, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b430247299b3b8e00800000000000000
-      internalID: 1047996867268445003
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skeleton_attack_6
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 0
-        width: 96
-        height: 64
-      alignment: 9
-      pivot: {x: 0.83, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4fc720c6f03727840800000000000000
-      internalID: 5220361428149632244
+      spriteID: d959cd6950514cac0800000000000000
+      internalID: -3835917868862761571
       vertices: []
       indices: 
       edges: []

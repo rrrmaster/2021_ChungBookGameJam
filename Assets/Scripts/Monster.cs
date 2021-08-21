@@ -36,6 +36,8 @@ public class Monster : MonoBehaviour
     private float dirChangeTimeChecker = 0;
     private float attackTimeChecker = 0;
 
+    private bool flipOrigin;
+
     private void Start()
     {
         Substantialization();
@@ -120,17 +122,19 @@ public class Monster : MonoBehaviour
         animator = gameObject.AddComponent<Animator>();
         animator.runtimeAnimatorController = animatorController;
 
+        flipOrigin = spriteRenderer.flipX;
+
         SetRandomDirection();
     }
 
     private void SetRandomDirection()
     {
-        FlipSprite(randDir + transform.position);
-        randDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
+        randDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized;
     }
 
     private void MoveInRandomDirection()
     {
+        FlipSprite(randDir + transform.position);
         transform.Translate(randDir * (moveSpeed * Time.deltaTime)); // 이동
 
         //나중에 이동범위 제한 해야함
@@ -159,7 +163,6 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            animator.SetBool("IsWalk", false);
             monsterState = EMonsterState.Idle;
         }
     }
@@ -180,8 +183,8 @@ public class Monster : MonoBehaviour
 
     private void FlipSprite(Vector3 target)
     {
-        if (transform.position.x > target.x) spriteRenderer.flipX = false;
-        else spriteRenderer.flipX = true;
+        if (transform.position.x > target.x) spriteRenderer.flipX = flipOrigin;
+        else spriteRenderer.flipX = !flipOrigin;
     }
 
     void OnDrawGizmosSelected()
