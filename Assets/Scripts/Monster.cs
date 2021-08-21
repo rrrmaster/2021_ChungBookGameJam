@@ -121,12 +121,25 @@ public class Monster : MonoBehaviour
         }
     }
 
+    private IEnumerator StopMoving(float delay)
+    {
+        SetRandomDirection();
+        moveSpeed = 0;
+        animator.SetBool("IsWalk", false);
+        monsterState = EMonsterState.Idle;
+
+        yield return new WaitForSeconds(delay);
+        dirChangeTimeChecker = 0;
+        moveSpeed = monsterScriptableObject.MoveSpeed;
+        animator.SetBool("IsWalk", true);
+
+    }
+
     private void OnIdleState()
     {
         if (dirChangeTimeChecker > 5f)
         {
-            SetRandomDirection();
-            dirChangeTimeChecker = 0;
+            StartCoroutine(StopMoving(1f));
         }
 
         MoveInRandomDirection();
@@ -250,6 +263,8 @@ public class Monster : MonoBehaviour
 
     private void FlipSprite(Vector3 target)
     {
+        if (moveSpeed == 0) return;
+
         if (transform.position.x > target.x) spriteRenderer.flipX = flipOrigin;
         else spriteRenderer.flipX = !flipOrigin;
     }

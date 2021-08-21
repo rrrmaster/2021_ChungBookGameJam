@@ -30,8 +30,6 @@ public class MainPresenter : MonoBehaviour
             x.value = value;
             AdjustVolumes();
         }));
-
-        SoundManager.Instance.PlayBGMSound("BGMSample");
     }
 
     private void AdjustVolumes()
@@ -39,6 +37,10 @@ public class MainPresenter : MonoBehaviour
         SoundManager.Instance.AdjustMasterVolume(optionView.MasterSlider.value);
         SoundManager.Instance.AdjustBGMVolume(optionView.BgmSlider.value);
         SoundManager.Instance.AdjustFxVoulme(optionView.FxSlider.value);
+
+        optionView.MasterText.text = (SoundManager.Instance.MasterVoulme * 100).ToString("F0");
+        optionView.BgmText.text = (SoundManager.Instance.BGMVolume * 100).ToString("F0");
+        optionView.FxText.text = (SoundManager.Instance.FxVoulme * 100).ToString("F0");
     }
 
 
