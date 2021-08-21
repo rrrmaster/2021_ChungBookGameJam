@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 14
   ItemID: 17
+  SellItemID: 37
   BasePrice: 100
   Name: "\uB9C8\uB140\uC758 \uB208"
   Description: 
-  Seasons: 0
-  HarvestSeasons: 2
+  Seasons: 4
+  HarvestSeasons: 4
   Icon: {fileID: 3013323849686641329, guid: a2398a483d9812544817f98368d78d73, type: 3}
   Animation:
-  - {fileID: 21300104, guid: bd6d25ec0c12bab4b9a7ff3896042b11, type: 3}
-  - {fileID: 21300112, guid: bd6d25ec0c12bab4b9a7ff3896042b11, type: 3}
+  - {fileID: -7815837348340922958, guid: 75112bb6ecee1744496e51b49e9e5c2b, type: 3}
+  - {fileID: -5565340475922699794, guid: 75112bb6ecee1744496e51b49e9e5c2b, type: 3}
+  - {fileID: -8402059799021083194, guid: 75112bb6ecee1744496e51b49e9e5c2b, type: 3}
+  ItemObjects:
+  - {fileID: 11400000, guid: ef1beeb0cec4ce941a5344657d1cf652, type: 2}
+  - {fileID: 11400000, guid: eaace8e38db4b0342939a290a81bb158, type: 2}

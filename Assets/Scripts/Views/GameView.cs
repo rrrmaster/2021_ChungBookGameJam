@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 using System.Linq;
+using DG.Tweening;
 
 public class GameView : MonoBehaviour
 {
@@ -20,6 +21,12 @@ public class GameView : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI seasonText;
+
+    [SerializeField]
+    private Image seasonPanel;
+
+    [SerializeField]
+    private Sprite[] seasonPanelImages;
 
     [SerializeField]
     private Button shopOnButton;
@@ -38,6 +45,8 @@ public class GameView : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI modeText;
 
+    [SerializeField]
+    private Image dimmed;
 
     public IObservable<Unit> OnShopClick
     {
@@ -80,6 +89,19 @@ public class GameView : MonoBehaviour
             seasonText.text = $"{v}";
         }
     }
+    public Season SeasonPanel
+    {
+        set 
+        {
+            var v = new Dictionary<Season, int>() {
+                { Season.Spring, 0},
+                { Season.Summer, 1},
+                { Season.Autumn, 2},
+                { Season.Winter, 3},
+            }[value];
+            seasonPanel.sprite = seasonPanelImages[v];
+        }
+    }
 
     internal void UseItemMode(bool value)
     {
@@ -108,4 +130,14 @@ public class GameView : MonoBehaviour
         transform1.GetComponentInChildren<TextMeshProUGUI>().text = $"{p.NewValue.Count:N0}";
     }
 
+    internal void NextDay(Action p)
+    {
+        var seq = DOTween.Sequence();
+
+        seq.OnStart(() => {dimmed.gameObject.SetActive(true);});
+        seq.OnComplete(() => { dimmed.gameObject.SetActive(false); p?.Invoke(); }).Play();
+        seq.Append(dimmed.DOFade(1, 0.4f).From(0));
+        seq.Append(dimmed.DOFade(0, 0.4f).From(1).SetDelay(1));
+        seq.Play();
+    }
 }

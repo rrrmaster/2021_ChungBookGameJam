@@ -33,6 +33,7 @@ public class GamePresenter : IInitializable, IDisposable
         gameModel.Date.Subscribe(date => gameView.TimeText = date);
         gameModel.Date.Subscribe(date => gameView.ClockImage = date);
         gameModel.Season.Subscribe(season => gameView.SeasonText = season);
+        gameModel.Season.Subscribe(season => gameView.SeasonPanel = season);
 
         gameView.OnShopClick.Subscribe(_ => OnShopShow());
         gameModel.Items.ObserveAdd().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottom(p));
@@ -41,7 +42,7 @@ public class GamePresenter : IInitializable, IDisposable
 
 
         gameModel.IsUseItem.Subscribe(value => gameView.UseItemMode(value));
-        Observable.Interval(new TimeSpan(0, 0, 0, 5, 0)).Subscribe(_ => gameModel.Date.Value = gameModel.Date.Value.AddMinutes(10));
+        Observable.Interval(new TimeSpan(0, 0, 0, 5, 0)).Subscribe(_ => AddTime());
         Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.Q)).Subscribe(_ => OnInventoryShow());
         Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.E)).Subscribe(_ => NextDay());
 
@@ -61,7 +62,15 @@ public class GamePresenter : IInitializable, IDisposable
     public Dictionary<Vector2Int, GameObject> map;
 
     private int number;
-
+    private void AddTime()
+    {
+        DateTime value = gameModel.Date.Value;
+        DateTime dateTime = value.AddMinutes(10);
+        if (value.Date == dateTime.Date)
+            gameModel.Date.Value = dateTime;
+        else
+            NextDay();
+    }
     private void Test()
     {
         var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -77,15 +86,16 @@ public class GamePresenter : IInitializable, IDisposable
         if (map.ContainsKey(key))
         {
             var crop = map[key].GetComponent<Crop>();
-            if (crop.Grow.Value  >= crop.maxGrow)
+            if (crop.Grow.Value >= crop.maxGrow)
             {
                 var dropItems = Resources.LoadAll<CropObject>("Crops").FirstOrDefault(p => p.ID == crop.id);
                 foreach (var item in dropItems.ItemObjects)
                 {
-                    gameModel.AddItem(new Item { Count = 1, DateTime = gameModel.Date.Value, ID = ite.id });
-                    GameObject.Destroy(map[key].gameObject);
-                    map.Remove(key);
+                    gameModel.AddItem(new Item { Count = 1, DateTime = gameModel.Date.Value.Date, ID = item.ID });
+
                 }
+                GameObject.Destroy(map[key].gameObject);
+                map.Remove(key);
             }
         }
     }
@@ -99,19 +109,25 @@ public class GamePresenter : IInitializable, IDisposable
         {
             Vector2Int vector2Int = new Vector2Int(number, 0);
             var item = gameModel.Items[vector2Int];
-            var crop = GameObject.Instantiate(Resources.Load<GameObject>("Crop"), new Vector3(pos.x, pos.y), Quaternion.identity);
             var id = gameModel.ItemObjects.FirstOrDefault(p => p.ID == item.ID).CropID;
-            crop.GetComponent<Crop>().SetData(id);
-            map.Add(key, crop);
-            if (item.Count > 1)
+            var a = Resources.LoadAll<CropObject>("Crops").FirstOrDefault(p => p.ID == id);
+            if ((gameModel.Season.Value & a.Seasons) == gameModel.Season.Value)
             {
-                item.Count -= 1;
-                gameModel.Items[vector2Int] = item;
-            }
-            else
-            {
-                gameModel.Items.Remove(vector2Int);
-                gameModel.IsUseItem.Value = false;
+
+                var crop = GameObject.Instantiate(Resources.Load<GameObject>("Crop"), new Vector3(pos.x, pos.y), Quaternion.identity);
+
+                crop.GetComponent<Crop>().SetData(id);
+                map.Add(key, crop);
+                if (item.Count > 1)
+                {
+                    item.Count -= 1;
+                    gameModel.Items[vector2Int] = item;
+                }
+                else
+                {
+                    gameModel.Items.Remove(vector2Int);
+                    gameModel.IsUseItem.Value = false;
+                }
             }
 
         }
@@ -121,8 +137,14 @@ public class GamePresenter : IInitializable, IDisposable
     }
     private void UseItem(int index)
     {
-        number = index;
-        gameModel.IsUseItem.Value = true;
+
+        var use = gameModel.ItemObjects.FirstOrDefault(p => p.ID == gameModel.Items[new Vector2Int(index, 0)].ID);
+        if (use && use.IsCrop)
+        {
+
+            number = index;
+            gameModel.IsUseItem.Value = true;
+        }
     }
 
     private void OnShopShow()
@@ -139,7 +161,15 @@ public class GamePresenter : IInitializable, IDisposable
         {
             item.Value.GetComponent<Crop>().Grow.Value += 1;
         }
-        gameModel.NextDay();
+        for (int i = 0; i < gameModel.StockItems.Count; i++)
+        {
+            var value = gameModel.StockItems[i];
+            value.OldPrice = value.Price;
+            value.Price = value.Price + Mathf.RoundToInt(value.Price * UnityEngine.Random.Range(-0.1f, 0.1f));
+            gameModel.StockItems[i] = value;
+        }
+        GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(133, 12);
+        gameView.NextDay(() => gameModel.NextDay());
     }
 
     public void Dispose()

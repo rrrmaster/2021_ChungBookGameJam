@@ -1,20 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Bed : MonoBehaviour
 {
-    private GameManager gameManager;
-    //Todo : ΩÃ±€≈Ê ∫–∏Æ « ø‰
-    private void Awake()
+    [Inject]
+    private GamePresenter gamePresenter;
+    private bool isEnter;
+
+    private void Update()
     {
-        gameManager =FindObjectOfType<GameManager>();
+        if(isEnter && Input.GetKeyDown(KeyCode.Space))
+            gamePresenter.NextDay();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            gameManager.NextDay();
+            isEnter = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            isEnter = false;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Crop", menuName = "Game/Crop")]
@@ -7,6 +8,8 @@ public class CropObject : ScriptableObject
     public int ID;
     [Header("상점 구매 아이탬 아이디")]
     public int ItemID;
+    [Header("열매 아이탬 아이디")]
+    public int SellItemID;
     [Header("기본 가격")]
     public int BasePrice;
 
@@ -35,13 +38,13 @@ public class CropObject : ScriptableObject
 
 
     [Header("아이템")]
-    public ItemObject[] ItemObjects;
+    public List<ItemObject>  ItemObjects;
 }
 
     
 [System.Flags]
 public enum Season
 {
-    Spring, Summer, Autumn, Winter
+    Spring =1, Summer=2, Autumn=4, Winter=8
 }
 

@@ -12,28 +12,40 @@ public class GameModel
     public ReadOnlyReactiveProperty<Season> Season { get; set; }
     public ReactiveDictionary<Vector2Int, Item> Items { get; set; }
 
+    public ReactiveCollection<StockItemModel> StockItems;
+
     public readonly ItemObject[] ItemObjects;
     public GameModel()
     {
         IsUseItem = new ReactiveProperty<bool>(false);
         Items = new ReactiveDictionary<Vector2Int, Item>();
-        Gold = new ReactiveProperty<int>(1000);
-        Date = new ReactiveProperty<DateTime>(new DateTime(100, 1, 1));
+        StockItems = new ReactiveCollection<StockItemModel>();
+           Gold = new ReactiveProperty<int>(1000);
+        Date = new ReactiveProperty<DateTime>(new DateTime(100, 1, 1,6,0,0));
         ItemObjects = Resources.LoadAll<ItemObject>("Items");
-        Season = Date.Select(value => (Season)((value.Month - 1) % 4)).ToReadOnlyReactiveProperty();
+
+        var v = new Season[4] {
+        global::Season.Spring,
+        global::Season.Summer,
+        global::Season.Autumn,
+        global::Season.Winter
+        };
+        Season = Date.Select(value => v[(value.Month - 1) % 4]).ToReadOnlyReactiveProperty();
     }
 
     public void NextDay()
     {
 
-        var nextDay = Date.Value.AddDays(1);
+        var nextDay = Date.Value.AddDays(1).Date;
+        nextDay = nextDay.AddHours(6);
+
         Date.Value = nextDay;
 
     }
 
     internal void AddItem(Item item)
     {
-        for (int y = 0; y < 4; y++)
+        for (int y = 0; y < 3; y++)
         {
             for (int x = 0; x < 9; x++)
             {
@@ -49,7 +61,7 @@ public class GameModel
                 }
             }
         }
-        for (int y = 0; y < 4; y++)
+        for (int y = 0; y < 3; y++)
         {
             for (int x = 0; x < 9; x++)
             {
@@ -64,6 +76,17 @@ public class GameModel
     }
 }
 
+
+
+public struct StockItemModel
+{
+    public int Price { get; set; }
+    public string Name { get; set; }
+    public Sprite Icon { get; set; }
+    public int ID { get; internal set; }
+    public int OldPrice { get; internal set; }
+    public int SellID { get; internal set; }
+}
 [Serializable]
 public struct Item
 {

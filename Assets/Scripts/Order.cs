@@ -5,9 +5,21 @@ using UnityEngine;
 public class Order : MonoBehaviour
 {
     public Renderer renderer;
-    void Update()
+    public OrderType orderType;
+    public enum OrderType
     {
-        renderer.sortingOrder = -Mathf.FloorToInt(transform.position.y*5);
+        Dynamic,Static
+    }
+    private void Start()
+    {
+        if(orderType == OrderType.Static)
+            renderer.sortingOrder = -Mathf.FloorToInt(transform.position.y * 5);
+
+    }
+    private void Update()
+    {
+        if(orderType == OrderType.Dynamic)
+            renderer.sortingOrder = -Mathf.FloorToInt(transform.position.y*5);
     }
 
  

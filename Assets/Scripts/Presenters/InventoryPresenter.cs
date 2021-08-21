@@ -21,6 +21,7 @@ public class InventoryPresenter : IInitializable, IDisposable
     public void Initialize()
     {
         gameModel.Items.ObserveAdd().Subscribe(v => inventoryView.SetBottom(v));
+        gameModel.Items.ObserveRemove().Where(p => p.Key.y == 0).Subscribe(p => inventoryView.SetInventoryItemRemoved(p));
         gameModel.Items.ObserveReplace().Subscribe(v => inventoryView.SetInventoryItemChanged(v));
         inventoryView.OnInventoryCloseClick.Subscribe(_=>inventoryView.gameObject.SetActive(false));
     }

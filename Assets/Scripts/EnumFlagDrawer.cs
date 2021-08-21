@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -40,3 +41,4 @@ public class EnumFlagsDrawer : PropertyDrawer
         return (T)reflectionTarget;
     }
 }
+#endif

@@ -25,6 +25,13 @@ public class InventoryView : MonoBehaviour
         transform1.GetChild(0).GetComponent<Image>().sprite = Resources.LoadAll<ItemObject>("Items").FirstOrDefault(v => v.ID == p.Value.ID).Icon;
         transform1.GetComponentInChildren<TextMeshProUGUI>().text = p.Value.Count.ToString();
     }
+
+    internal void SetInventoryItemRemoved(DictionaryRemoveEvent<Vector2Int, Item> p)
+    {
+        Transform transform1 = itemTransform.GetChild(p.Key.x + (2 - p.Key.y) * 9).GetChild(0);
+        transform1.gameObject.SetActive(false);
+    }
+
     internal void SetInventoryItemChanged(DictionaryReplaceEvent<Vector2Int, Item> p)
     {
         Transform transform1 = itemTransform.GetChild(p.Key.x + (2 - p.Key.y) * 9).GetChild(0);

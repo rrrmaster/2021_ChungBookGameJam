@@ -10,10 +10,13 @@ public class GameInstaller : MonoInstaller<GameInstaller>
     [SerializeField]
     private InventoryView inventoryView;
 
+    [SerializeField]
+    private CalendarView calendarView;
+
     public override void InstallBindings()
     {
         Container.Bind<GameView>().FromInstance(gameView).AsSingle();
-        Container.BindInterfacesTo<GamePresenter>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GamePresenter>().AsSingle();
         Container.Bind<GameModel>().AsSingle();
 
 
@@ -23,6 +26,9 @@ public class GameInstaller : MonoInstaller<GameInstaller>
 
         Container.Bind<InventoryView>().FromInstance(inventoryView).AsSingle();
         Container.BindInterfacesTo<InventoryPresenter>().AsSingle();
-        Debug.Log("aa");
+
+        Container.Bind<CalendarView>().FromInstance(calendarView).AsSingle();
+        Container.BindInterfacesTo<CalendarPresenter>().AsSingle();
+
     }
 }
