@@ -43,8 +43,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: New Layer 2
+  - name: Player
     uniqueID: 1810331411
+    locked: 0
+  - name: Particle
+    uniqueID: 2400879085
     locked: 0
   - name: UI
     uniqueID: 2949474761
