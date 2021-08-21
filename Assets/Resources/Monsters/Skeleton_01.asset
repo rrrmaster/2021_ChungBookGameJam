@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHealth: 1
   attackPower: 1
   attackDelay: 1
-  attackRange: 3
+  attackRange: 2
   chaseRange: 8
   moveSpeed: 1
   animatorController: {fileID: 9100000, guid: 2b071ffe7a3db66438910e0199ada8b4, type: 2}

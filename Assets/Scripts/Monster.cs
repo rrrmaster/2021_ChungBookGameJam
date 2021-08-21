@@ -176,11 +176,11 @@ public class Monster : MonoBehaviour
         Vector3 point = transform.position;
         if (spriteRenderer.flipX) //right
         {
-            point.x += 1.5f;
+            point.x += 1f;
         }
         else
         {
-            point.x -= 1.5f;
+            point.x -= 1f;
         }
 
 
