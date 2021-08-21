@@ -23,7 +23,8 @@ public class Monster : MonoBehaviour
     private float chaseRange;
     private float moveSpeed;
 
-    private RuntimeAnimatorController animator;
+    private RuntimeAnimatorController animatorController;
+    private Animator animator;
 
     [SerializeField] private float curHealth; //현제 체력
     [SerializeField] private EMonsterState monsterState = new EMonsterState(); //현제 상태\
@@ -34,6 +35,8 @@ public class Monster : MonoBehaviour
 
     private float dirChangeTimeChecker = 0;
     private float attackTimeChecker = 0;
+
+    private bool flipOrigin;
 
     private void Start()
     {
@@ -49,15 +52,15 @@ public class Monster : MonoBehaviour
         {
             case EMonsterState.Idle:
                 OnIdleState();
-                CheckRange();
+                CheckStage();
                 break;
             case EMonsterState.Chase:
                 OnChaseState();
-                CheckRange();
+                CheckStage();
                 break;
             case EMonsterState.Attack:
                 OnAttackState();
-                CheckRange();
+                CheckStage();
                 break;
             case EMonsterState.Dead:
                 OnDeadState();
@@ -83,9 +86,10 @@ public class Monster : MonoBehaviour
 
     private void OnAttackState()
     {
-        if (attackTimeChecker <= attackSpeed)
+        if (attackTimeChecker >= attackSpeed)
         {
             //TODO 어택
+            animator.SetTrigger("Attack");
             attackTimeChecker = 0;
         }
     }
@@ -105,7 +109,7 @@ public class Monster : MonoBehaviour
         chaseRange = monsterScriptableObject.ChaseRange;
         moveSpeed = monsterScriptableObject.MoveSpeed;
 
-        animator = monsterScriptableObject.Animator;
+        animatorController = monsterScriptableObject.AnimatorController;
     }
 
     private void Initialization()
@@ -115,17 +119,22 @@ public class Monster : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
 
+        animator = gameObject.AddComponent<Animator>();
+        animator.runtimeAnimatorController = animatorController;
+
+        flipOrigin = spriteRenderer.flipX;
+
         SetRandomDirection();
     }
 
     private void SetRandomDirection()
     {
-        FlipSprite(randDir + transform.position);
-        randDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
+        randDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized;
     }
 
     private void MoveInRandomDirection()
     {
+        FlipSprite(randDir + transform.position);
         transform.Translate(randDir * (moveSpeed * Time.deltaTime)); // 이동
 
         //나중에 이동범위 제한 해야함
@@ -140,14 +149,16 @@ public class Monster : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
-    private void CheckRange()
+    private void CheckStage()
     {
         if ((transform.position - target.position).sqrMagnitude < attackRange * attackRange)
         {
+            animator.SetBool("IsWalk", false);
             monsterState = EMonsterState.Attack;
         }
         else if ((transform.position - target.position).sqrMagnitude < chaseRange * chaseRange)
         {
+            animator.SetBool("IsWalk", true);
             monsterState = EMonsterState.Chase;
         }
         else
@@ -172,8 +183,8 @@ public class Monster : MonoBehaviour
 
     private void FlipSprite(Vector3 target)
     {
-        if (transform.position.x > target.x) spriteRenderer.flipX = true;
-        else spriteRenderer.flipX = false;
+        if (transform.position.x > target.x) spriteRenderer.flipX = flipOrigin;
+        else spriteRenderer.flipX = !flipOrigin;
     }
 
     void OnDrawGizmosSelected()
