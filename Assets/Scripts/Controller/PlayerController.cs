@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         attackTimeChecker += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             if (attackTimeChecker >= attackDelay)
             {
