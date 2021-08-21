@@ -18,6 +18,6 @@ public class DialogTest : MonoBehaviour
             dialogTextDictionary.Add(vo.code, vo.text);
         }
 
-        mainPresenter.inGameView.StartDialog(dialogTextDictionary[0]);
+        //mainPresenter.inGameView.StartDialog(dialogTextDictionary[0]);
     }
 }

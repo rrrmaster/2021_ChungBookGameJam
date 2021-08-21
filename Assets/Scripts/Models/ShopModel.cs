@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class ShopModel : IInitializable
+public class ShopModel
 {
-    public ReactiveCollection<ShopItem> ShopItems;
+    public ReactiveCollection<ShopItemModel> ShopItems;
 
-    public void Initialize()
+    public ShopModel()
     {
-        ShopItems = new ReactiveCollection<ShopItem>();
+        ShopItems = new ReactiveCollection<ShopItemModel>();
 
-        var crops = Resources.LoadAll<CropObject>("Crops");
-        Debug.Log(crops.Length);
-        foreach (var item in crops)
-        {
-            Debug.Log(item.Name);
-        }
+    
     }
 }
 
 
-public struct ShopItem
+public struct ShopItemModel
 {
-
+    public int Price { get; set; }
+    public string Name { get; set; }
+    public Sprite Icon { get; set; }
+    public int ID { get; internal set; }
 }

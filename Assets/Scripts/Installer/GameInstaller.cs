@@ -7,6 +7,8 @@ public class GameInstaller : MonoInstaller<GameInstaller>
     private GameView gameView;
     [SerializeField]
     private ShopView shopView;
+    [SerializeField]
+    private InventoryView inventoryView;
 
     public override void InstallBindings()
     {
@@ -17,8 +19,10 @@ public class GameInstaller : MonoInstaller<GameInstaller>
 
         Container.Bind<ShopView>().FromInstance(shopView).AsSingle();
         Container.BindInterfacesTo<ShopPresenter>().AsSingle();
-        Container.BindInterfacesTo<ShopModel>().AsSingle();
+        Container.Bind<ShopModel>().AsSingle();
 
+        Container.Bind<InventoryView>().FromInstance(inventoryView).AsSingle();
+        Container.BindInterfacesTo<InventoryPresenter>().AsSingle();
         Debug.Log("aa");
     }
 }

@@ -162,6 +162,28 @@ namespace UniRx
             }
         }
     }
+    [Serializable]
+    public class VectorInt2ReactiveProperty : ReactiveProperty<Vector2Int>
+    {
+        public VectorInt2ReactiveProperty()
+        {
+
+        }
+
+        public VectorInt2ReactiveProperty(Vector2Int initialValue)
+            : base(initialValue)
+        {
+
+        }
+
+        protected override IEqualityComparer<Vector2Int> EqualityComparer
+        {
+            get
+            {
+                return UnityEqualityComparer.Vector2Int;
+            }
+        }
+    }
 
     /// <summary>Inspectable ReactiveProperty.</summary>
     [Serializable]

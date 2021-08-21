@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3aa423393eca3e40924543d07c7e87c, type: 3}
+  m_Name: "1_\uBC9B\uAF43\uC0C1\uCD94"
+  m_EditorClassIdentifier: 
+  ID: 1
+  ItemID: 4
+  Name: "\uBC9B\uAF43\uC0C1\uCD94"
+  Description: 
+  Seasons: 0
+  HarvestSeasons: 3
+  Icon: {fileID: 2749703584677109874, guid: a2398a483d9812544817f98368d78d73, type: 3}
+  Animation: []
