@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class OptionView : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class OptionView : MonoBehaviour
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider fxSlider;
 
-    [SerializeField] private Text masterText;
-    [SerializeField] private Text bgmText;
-    [SerializeField] private Text fxText;
+    [SerializeField] private TextMeshProUGUI masterText;
+    [SerializeField] private TextMeshProUGUI bgmText;
+    [SerializeField] private TextMeshProUGUI fxText;
 
 
     private List<Slider> sliders;
@@ -28,9 +29,9 @@ public class OptionView : MonoBehaviour
     public Slider FxSlider { get => fxSlider; set => fxSlider = value; }
     public Slider BgmSlider { get => bgmSlider; set => bgmSlider = value; }
     public Slider MasterSlider { get => masterSlider; set => masterSlider = value; }
-    public Text MasterText { get => masterText; set => masterText = value; }
-    public Text BgmText { get => bgmText; set => bgmText = value; }
-    public Text FxText { get => fxText; set => fxText = value; }
+    public TextMeshProUGUI MasterText { get => masterText; set => masterText = value; }
+    public TextMeshProUGUI BgmText { get => bgmText; set => bgmText = value; }
+    public TextMeshProUGUI FxText { get => fxText; set => fxText = value; }
 
     private void Start()
     {

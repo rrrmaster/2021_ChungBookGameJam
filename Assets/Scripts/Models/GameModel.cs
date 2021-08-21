@@ -15,6 +15,7 @@ public class GameModel
     public ReactiveCollection<StockItemModel> StockItems;
 
     public readonly ItemObject[] ItemObjects;
+    public readonly CropObject[] CropObjects;
     public GameModel()
     {
         IsUseItem = new ReactiveProperty<bool>(false);
@@ -23,6 +24,7 @@ public class GameModel
            Gold = new ReactiveProperty<int>(1000);
         Date = new ReactiveProperty<DateTime>(new DateTime(100, 1, 1,6,0,0));
         ItemObjects = Resources.LoadAll<ItemObject>("Items");
+        CropObjects = Resources.LoadAll<CropObject>("Crops");
 
         var v = new Season[4] {
         global::Season.Spring,
