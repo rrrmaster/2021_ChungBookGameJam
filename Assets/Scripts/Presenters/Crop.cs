@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using System;
+using System.Linq;
+
 public class Crop : MonoBehaviour
 {
     [SerializeField]
@@ -23,5 +26,13 @@ public class Crop : MonoBehaviour
         });
 
         IsRipening = Grow.Select(x => x >= maxGrow).ToReadOnlyReactiveProperty();
+    }
+
+
+    internal void SetData(int id)
+    {
+        var cropObject = Resources.LoadAll<CropObject>("Crops").FirstOrDefault(p => p.ID == id);
+        cropSprites = cropObject.Animation;
+        Grow.SetValueAndForceNotify(0);
     }
 }
