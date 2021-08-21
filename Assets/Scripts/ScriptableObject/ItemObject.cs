@@ -8,6 +8,7 @@ public class ItemObject : ScriptableObject
     [Header("¾ÆÀÌµð")]
     public int ID;
     public string Name;
+    public string Description;
     public Sprite Icon;
 
     public bool IsCrop;

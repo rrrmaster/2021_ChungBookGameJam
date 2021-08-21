@@ -34,10 +34,11 @@ public class ShopPresenter : IInitializable, IDisposable
         var crops = Resources.LoadAll<CropObject>("Crops");
         foreach (var crop in crops)
         {
-            StockItemModel item = new StockItemModel() { 
-                Name = crop.Name, 
-                Icon = crop.Icon, 
-                ID = crop.ItemID, 
+            StockItemModel item = new StockItemModel() {
+                Name = crop.Name,
+                Icon = crop.Icon,
+                ID = crop.ItemID,
+                De = crop.Description,
                 Price = crop.BasePrice, 
                 OldPrice = crop.BasePrice,
                 SellID = crop.SellItemID

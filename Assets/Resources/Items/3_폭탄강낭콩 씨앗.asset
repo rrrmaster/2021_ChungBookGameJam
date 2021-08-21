@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 3
   Name: "\uD3ED\uD0C4\uAC15\uB0AD\uCF69 \uC528\uC557"
+  Description: asdasdas
   Icon: {fileID: 3303728773523902556, guid: a2398a483d9812544817f98368d78d73, type: 3}
   IsCrop: 1
   CropID: 0

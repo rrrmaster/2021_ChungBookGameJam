@@ -82,6 +82,7 @@ public struct StockItemModel
 {
     public int Price { get; set; }
     public string Name { get; set; }
+    public string De { get; set; }
     public Sprite Icon { get; set; }
     public int ID { get; internal set; }
     public int OldPrice { get; internal set; }

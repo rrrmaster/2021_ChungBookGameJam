@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UniRx;
 using System;
 using System.Globalization;
+using Zenject;
 
-public class ShopItemView : MonoBehaviour
+public class ShopItemView : MonoBehaviour, IPointerMoveHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private TextMeshProUGUI NameText;
@@ -21,6 +23,9 @@ public class ShopItemView : MonoBehaviour
     [SerializeField]
     private Button buyButton;
 
+
+    [Inject]
+    private ToolTip toolTip;
     public string Name
     {
         set => NameText.text = value;
@@ -33,6 +38,24 @@ public class ShopItemView : MonoBehaviour
     public IObservable<Unit> OnShopBuy
     {
         get => buyButton.OnClickAsObservable();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        FindObjectOfType<ToolTip>(true).Show();
+    }
+    public StockItemModel stockItemModel;
+    public void OnPointerExit(PointerEventData eventData)
+    {
+
+        FindObjectOfType<ToolTip>(true).Hide();
+    }
+    public void OnPointerMove(PointerEventData eventData)
+    {
+
+        ToolTip toolTip1 = FindObjectOfType<ToolTip>(true);
+        toolTip1.SetPosition(eventData.position);
+        toolTip1.SetText(stockItemModel.Name, stockItemModel.De);
     }
 
     internal void SetPrice(int price, int oldPrice)

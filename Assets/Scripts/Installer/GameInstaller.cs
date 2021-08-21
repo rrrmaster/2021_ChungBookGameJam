@@ -12,6 +12,8 @@ public class GameInstaller : MonoInstaller<GameInstaller>
 
     [SerializeField]
     private CalendarView calendarView;
+    [SerializeField]
+    private ToolTip toolTip;
 
     public override void InstallBindings()
     {

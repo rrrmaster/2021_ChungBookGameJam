@@ -48,6 +48,7 @@ public class ShopView : MonoBehaviour
         item.OnShopBuy.Subscribe(_ => Buy(value));
         item.Name = value.Name;
         item.Icon = value.Icon;
+        item.stockItemModel= value;
         item.SetPrice(value.Price, value.OldPrice);
     }
 
