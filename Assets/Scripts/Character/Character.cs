@@ -15,6 +15,7 @@ public class Character
         get { return rigidbody.velocity; }
     }
 
+
     public Character(Animator animator, Rigidbody2D rigidbody)
     {
         this.animator = animator;

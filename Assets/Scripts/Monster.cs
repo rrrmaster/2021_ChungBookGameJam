@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public enum EMonsterState
 {
@@ -18,7 +19,7 @@ public class Monster : MonoBehaviour
     private string fullName;
     private float maxHealth;
     private float attackPower;
-    private float attackSpeed;
+    private float attackDelay;
     private float attackRange;
     private float chaseRange;
     private float moveSpeed;
@@ -30,22 +31,74 @@ public class Monster : MonoBehaviour
     [SerializeField] private EMonsterState monsterState = new EMonsterState(); //현제 상태\
     private SpriteRenderer spriteRenderer;
 
+    public LayerMask whatIsPlayer;
+
     private Transform target;
     private Vector3 randDir = Vector3.zero;
+
+    private Vector3 minXY = Vector3.zero;
+    private Vector3 maxXY = Vector3.zero;
 
     private float dirChangeTimeChecker = 0;
     private float attackTimeChecker = 0;
 
     private bool flipOrigin;
+    private bool isScriptableObjectInit = false;
 
-    private void Start()
+    public void InitializeScriptableObject(MonsterScriptableObject scriptableObject)
     {
+        monsterScriptableObject = scriptableObject;
+
+        isScriptableObjectInit = true;
+
         Substantialization();
         Initialization();
     }
 
+
+    public void OnDamage(float damage) // 피해를 받는 기능
+    {
+        if (!(monsterState == EMonsterState.Dead))
+        {
+            curHealth -= damage;
+            HitEffect();
+
+            if (curHealth <= 0 /*&!dead*/)
+            {
+                monsterState = EMonsterState.Dead;
+                StartCoroutine(OnDead());
+                //TODO 사망
+            }
+        }
+    }
+
+    private IEnumerator OnDead()
+    {
+        animator.SetTrigger("Dead");
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
+    }
+
+    private void HitEffect()
+    {
+        spriteRenderer.material.DOColor(Color.red, 0.2f).OnComplete(() => spriteRenderer.material.DOColor(Color.white, 0.2f));
+    }
+
+    public void SetMinMaxXY(Vector3 minXY, Vector3 maxXY)
+    {
+        this.minXY = minXY;
+        this.maxXY = maxXY;
+    }
+
+    public void SetPosition(Vector3 pos)
+    {
+        transform.position = pos;
+    }
+
     private void Update()
     {
+        if (!isScriptableObjectInit) return;
+
         attackTimeChecker += Time.deltaTime;
         dirChangeTimeChecker += Time.deltaTime;
         switch (monsterState)
@@ -86,7 +139,7 @@ public class Monster : MonoBehaviour
 
     private void OnAttackState()
     {
-        if (attackTimeChecker >= attackSpeed)
+        if (attackTimeChecker >= attackDelay)
         {
             //TODO 어택
             animator.SetTrigger("Attack");
@@ -99,12 +152,40 @@ public class Monster : MonoBehaviour
 
     }
 
+    private void Attack()
+    {
+        Vector3 point = transform.position;
+        if (spriteRenderer.flipX) //right
+        {
+            point.x += 1.5f;
+        }
+        else
+        {
+            point.x -= 1.5f;
+        }
+
+
+        Collider2D[] colls = Physics2D.OverlapCircleAll(point, attackRange, whatIsPlayer);
+
+        //충돌 발생시
+        foreach (var item in colls)
+        {
+            PlayerController player;
+            item.gameObject.TryGetComponent<PlayerController>(out player);
+
+            if (player != null)
+            {
+                player.OnDamage(attackPower);
+            }
+        }
+    }
+
     private void Substantialization()
     {
         fullName = monsterScriptableObject.FullName;
         maxHealth = monsterScriptableObject.MaxHealth;
         attackPower = monsterScriptableObject.AttackPower;
-        attackSpeed = monsterScriptableObject.AttackSpeed;
+        attackDelay = monsterScriptableObject.AttackDelay;
         attackRange = monsterScriptableObject.AttackRange;
         chaseRange = monsterScriptableObject.ChaseRange;
         moveSpeed = monsterScriptableObject.MoveSpeed;
@@ -138,9 +219,9 @@ public class Monster : MonoBehaviour
         transform.Translate(randDir * (moveSpeed * Time.deltaTime)); // 이동
 
         //나중에 이동범위 제한 해야함
-        // float x = Mathf.Clamp(transform.position.x, minXY.x, maxXY.x); 
-        // float y = Mathf.Clamp(transform.position.y, minXY.y, maxXY.y);
-        //transform.position = new Vector3(x, y, 0);
+        float x = Mathf.Clamp(transform.position.x, minXY.x, maxXY.x);
+        float y = Mathf.Clamp(transform.position.y, minXY.y, maxXY.y);
+        transform.position = new Vector3(x, y, 0);
     }
 
     private void MoveToTarget()
@@ -167,27 +248,13 @@ public class Monster : MonoBehaviour
         }
     }
 
-
-    public void OnDamage(float damage) // 피해를 받는 기능
-    {
-        if (!(monsterState == EMonsterState.Dead))
-        {
-            curHealth -= damage;
-            if (curHealth <= 0 /*&!dead*/)
-            {
-                monsterState = EMonsterState.Dead;
-                //TODO 사망
-            }
-        }
-    }
-
     private void FlipSprite(Vector3 target)
     {
         if (transform.position.x > target.x) spriteRenderer.flipX = flipOrigin;
         else spriteRenderer.flipX = !flipOrigin;
     }
 
-    void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.yellow;
