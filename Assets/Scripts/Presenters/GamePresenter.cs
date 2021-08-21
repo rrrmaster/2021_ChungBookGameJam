@@ -4,6 +4,7 @@ using System.Linq;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using static GameInstaller;
 
 public class GamePresenter : IInitializable, IDisposable
 {
@@ -14,13 +15,14 @@ public class GamePresenter : IInitializable, IDisposable
     private readonly GameView gameView;
     private readonly GameModel gameModel;
     private readonly CompositeDisposable compositeDisposable;
-
-    public GamePresenter(GameView gameView, GameModel gameModel, ShopView shopView, InventoryView inventoryView)
+    private readonly Setting setting;
+    public GamePresenter(GameView gameView, GameModel gameModel, ShopView shopView, InventoryView inventoryView,Setting setting)
     {
         this.gameView = gameView;
         this.gameModel = gameModel;
         this.shopView = shopView;
         this.inventoryView = inventoryView;
+        this.setting = setting;
         map = new Dictionary<Vector2Int, GameObject>();
         compositeDisposable = new CompositeDisposable();
 
@@ -34,8 +36,11 @@ public class GamePresenter : IInitializable, IDisposable
         gameModel.Date.Subscribe(date => gameView.ClockImage = date);
         gameModel.Season.Subscribe(season => gameView.SeasonText = season);
         gameModel.Season.Subscribe(season => gameView.SeasonPanel = season);
+        gameModel.Health.Subscribe(health => gameView.SetHealth(health));
 
         gameView.OnShopClick.Subscribe(_ => OnShopShow());
+        gameView.OnDungeonClick.Subscribe(_ => OnDungeonShow());
+
         gameModel.Items.ObserveAdd().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottom(p));
         gameModel.Items.ObserveRemove().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottom(p));
         gameModel.Items.ObserveReplace().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottomChanged(p));
@@ -59,6 +64,12 @@ public class GamePresenter : IInitializable, IDisposable
         Observable.EveryUpdate().Where(_ => gameModel.IsUseItem.Value).Where(_ => Input.GetMouseButtonDown(0)).Subscribe(_ => SetCrop());
 
     }
+
+    internal void Washing(Vector2Int nKey)
+    {
+        setting.TileMap.SetTile(new Vector3Int(nKey.x, nKey.y,0), setting.washingTile);
+    }
+
     public Dictionary<Vector2Int, GameObject> map;
 
     private int number;
@@ -73,11 +84,20 @@ public class GamePresenter : IInitializable, IDisposable
     }
     private void Test()
     {
+        Vector2Int vector2Int = new Vector2Int(number, 0);
+        var item = gameModel.Items[vector2Int];
+        var id = gameModel.ItemObjects.FirstOrDefault(p => p.ID == item.ID).CropID;
+        var a = gameModel.CropObjects.FirstOrDefault(p => p.ID == id);
+
         var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var pos = new Vector2Int(Mathf.FloorToInt(mouse.x + 0.5f), Mathf.FloorToInt(mouse.y - 0.5f));
+        var key = new Vector2Int(Mathf.FloorToInt(mouse.x + 0.5f), Mathf.FloorToInt(mouse.y - 0.5f));
         var vector3 = new Vector3(pos.x + 0.5f, pos.y + 0.5f);
         gameView.Box.position = vector3;
-        gameView.Box.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.5f);
+        if (!map.ContainsKey(key) && setting.isCropTileMap.HasTile(new Vector3Int(key.x, key.y, 0)) && (a.Seasons | gameModel.Season.Value) == gameModel.Season.Value)
+            gameView.Box.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.5f);
+        else
+            gameView.Box.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.5f);
     }
     private void Test1()
     {
@@ -88,6 +108,8 @@ public class GamePresenter : IInitializable, IDisposable
             var crop = map[key].GetComponent<Crop>();
             if (crop.Grow.Value >= crop.maxGrow)
             {
+
+                SoundManager.Instance.PlayFXSound("Harvesting");
                 var dropItems = Resources.LoadAll<CropObject>("Crops").FirstOrDefault(p => p.ID == crop.id);
                 foreach (var item in dropItems.ItemObjects)
                 {
@@ -105,7 +127,7 @@ public class GamePresenter : IInitializable, IDisposable
         var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var pos = new Vector2(Mathf.FloorToInt(mouse.x + 0.5f) + 0.5f, Mathf.FloorToInt(mouse.y - 0.5f));
         var key = new Vector2Int(Mathf.FloorToInt(mouse.x + 0.5f), Mathf.FloorToInt(mouse.y - 0.5f));
-        if (!map.ContainsKey(key))
+        if (!map.ContainsKey(key) && setting.isCropTileMap.HasTile(new Vector3Int(key.x, key.y,0)))
         {
             Vector2Int vector2Int = new Vector2Int(number, 0);
             var item = gameModel.Items[vector2Int];
@@ -116,6 +138,7 @@ public class GamePresenter : IInitializable, IDisposable
 
                 var crop = GameObject.Instantiate(Resources.Load<GameObject>("Crop"), new Vector3(pos.x, pos.y), Quaternion.identity);
 
+                SoundManager.Instance.PlayFXSound("Seed");
                 crop.GetComponent<Crop>().SetData(id);
                 map.Add(key, crop);
                 if (item.Count > 1)
@@ -146,20 +169,41 @@ public class GamePresenter : IInitializable, IDisposable
             gameModel.IsUseItem.Value = true;
         }
     }
-
     private void OnShopShow()
     {
+        SoundManager.Instance.PlayFXSound("Popup");
         shopView.gameObject.SetActive(true);
+    }
+    private void OnDungeonShow()
+    {
+        Debug.Log("dsasad");    
+        SoundManager.Instance.PlayFXSound("Popup");
+        GameObject.FindObjectOfType<DungeonManager>().OnClickDungeonButton();
     }
     private void OnInventoryShow()
     {
+        SoundManager.Instance.PlayFXSound("Popup");
         inventoryView.gameObject.SetActive(true);
     }
     public void NextDay()
     {
+        NewMethod();
+        GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(133, 12);
+        gameView.NextDay(() => NewMethod());
+    }
+
+    private void NewMethod()
+    {
+        gameModel.Health.Value = 5;
         foreach (var item in map)
         {
-            item.Value.GetComponent<Crop>().Grow.Value += 1;
+            Crop crop = item.Value.GetComponent<Crop>();
+            if (crop.IsTodayWashing)
+            {
+                crop.Grow.Value += 1;
+            }
+            setting.TileMap.SetTile(new Vector3Int(item.Key.x, item.Key.y, 0), setting.noWashingTile);
+            crop.IsTodayWashing = false;
         }
         for (int i = 0; i < gameModel.StockItems.Count; i++)
         {
@@ -168,8 +212,19 @@ public class GamePresenter : IInitializable, IDisposable
             value.Price = value.Price + Mathf.RoundToInt(value.Price * UnityEngine.Random.Range(-0.1f, 0.1f));
             gameModel.StockItems[i] = value;
         }
-        GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(133, 12);
-        gameView.NextDay(() => gameModel.NextDay());
+        gameModel.NextDay();
+        foreach (var item in map)
+        {
+            Crop crop = item.Value.GetComponent<Crop>();
+            var cropInfo = gameModel.CropObjects.First(p => crop.id == p.ID);
+
+            if ((cropInfo.Seasons|gameModel.Season.Value) == gameModel.Season.Value || (cropInfo.HarvestSeasons | gameModel.Season.Value) == gameModel.Season.Value)
+                continue;
+            GameObject.Destroy(item.Value);
+            map.Remove(item.Key);
+        }
+
+
     }
 
     public void Dispose()

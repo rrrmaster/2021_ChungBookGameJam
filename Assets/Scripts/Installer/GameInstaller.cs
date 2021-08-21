@@ -1,5 +1,6 @@
 using Zenject;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameInstaller : MonoInstaller<GameInstaller>
 {
@@ -13,10 +14,16 @@ public class GameInstaller : MonoInstaller<GameInstaller>
     [SerializeField]
     private CalendarView calendarView;
     [SerializeField]
+    private TutorialView tutorialView;
+    [SerializeField]
     private ToolTip toolTip;
 
+    [SerializeField]
+    private Setting setting;
     public override void InstallBindings()
     {
+        Container.Bind<Setting>().FromInstance(setting).AsSingle();
+
         Container.Bind<GameView>().FromInstance(gameView).AsSingle();
         Container.BindInterfacesAndSelfTo<GamePresenter>().AsSingle();
         Container.Bind<GameModel>().AsSingle();
@@ -32,5 +39,16 @@ public class GameInstaller : MonoInstaller<GameInstaller>
         Container.Bind<CalendarView>().FromInstance(calendarView).AsSingle();
         Container.BindInterfacesTo<CalendarPresenter>().AsSingle();
 
+        Container.Bind<TutorialView>().FromInstance(tutorialView).AsSingle();
+        Container.BindInterfacesTo<TutorialPresenter>().AsSingle();
+    }
+
+    [System.Serializable]
+    public class Setting
+    {
+        public Tilemap TileMap;
+        public Tilemap isCropTileMap;
+        public Tile washingTile;
+        public Tile noWashingTile;
     }
 }

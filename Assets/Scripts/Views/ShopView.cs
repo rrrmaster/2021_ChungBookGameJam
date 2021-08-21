@@ -64,7 +64,7 @@ public class ShopView : MonoBehaviour
         {
             gameModel.Gold.Value -= item.Price;
             gameModel.AddItem(new Item() { ID = value.ID, Count = 1 });
-
+            SoundManager.Instance.PlayFXSound("BuySell");
             for (int y = 0; y < 3; y++)
             {
                 for (int x = 0; x < 9; x++)

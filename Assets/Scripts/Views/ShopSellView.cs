@@ -43,8 +43,8 @@ public class ShopSellView : MonoBehaviour, IPointerUpHandler
                         gameModel.Items.Remove(pos);
                     }
                 }
+                SoundManager.Instance.PlayFXSound("BuySell");
             }
-
             Debug.Log("Mouse Click Button : Left"); 
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
@@ -63,8 +63,9 @@ public class ShopSellView : MonoBehaviour, IPointerUpHandler
                 {
                     gameModel.Gold.Value += 5 * item.Count;
                     gameModel.Items[pos] = item;
-            
+
                 }
+                SoundManager.Instance.PlayFXSound("BuySell");
                 gameModel.Items.Remove(pos);
             }
 

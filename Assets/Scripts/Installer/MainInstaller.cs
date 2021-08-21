@@ -13,7 +13,7 @@ public class MainInstaller : MonoInstaller<MainInstaller>
     public override void InstallBindings()
     {
 
-        Container.Bind<MainPresenter>().AsSingle();
+        Container.BindInterfacesAndSelfTo<MainPresenter>().AsSingle();
         Container.Bind<OptionView>().FromInstance(optionView).AsSingle();
         Container.Bind<MainView>().FromInstance(mainView).AsSingle();
     }

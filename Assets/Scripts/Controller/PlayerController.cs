@@ -1,6 +1,8 @@
 using UniRx;
 using UnityEngine;
 using System.Collections;
+using Zenject;
+
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rigidbody;
@@ -20,8 +22,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackPower;
 
     private bool isDead = false;
+    [Inject]
+    public GameModel gameModel;
+
+    [Inject]
+    private GamePresenter gamePresenter;
+
 
     private float attackTimeChecker = 0;
+    private float washingTimeChecker = 0;
 
     private void Start()
     {
@@ -40,11 +49,37 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         attackTimeChecker += Time.deltaTime;
+        washingTimeChecker += Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && !gameModel.IsUseItem.Value)
+        {
+            if (washingTimeChecker >= 1.5f)
+            {
+                SoundManager.Instance.PlayFXSound("Water");
+                animator.SetTrigger("Washing");
+                washingTimeChecker = 0;
+                var playerPos = transform.position;
+                var key = new Vector2Int(Mathf.FloorToInt(playerPos.x), Mathf.FloorToInt(playerPos.y - 0.5f));
+                for (int y = -1; y <= 1; y++)
+                {
+                    for (int x = -1; x <= 1; x++)
+                    {
+                        var nKey = new Vector2Int(x, y) + key;
+                        if (gamePresenter.map.ContainsKey(nKey))
+                        {
+                            gamePresenter.map[nKey].GetComponent<Crop>().IsTodayWashing = true;
+                            gamePresenter.Washing(nKey);
+                        }
 
+                    }
+
+                }
+            }
+        }
         if (Input.GetMouseButtonDown(1))
         {
             if (attackTimeChecker >= attackDelay)
             {
+                SoundManager.Instance.PlayFXSound("Attack");
                 //TODO 어택
                 animator.SetTrigger("Attack");
                 attackTimeChecker = 0;
@@ -108,14 +143,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnDamage(float damage) // 피해를 받는 기능
     {
-        if (!isDead)
+        gameModel.Health.Value -= 1;
+        if(gameModel.Health.Value==0)
         {
-            curHealth -= damage;
-            if (curHealth <= 0 /*&!dead*/)
-            {
-                //TODO 사망
-                isDead = true;
-            }
+            FindObjectOfType<DungeonManager>().QuitDungeon();
+            gamePresenter.NextDay();
         }
     }
 }

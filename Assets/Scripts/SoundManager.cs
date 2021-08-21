@@ -5,8 +5,8 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public float MasterVoulme => masterVoulme;
-    public float BGMVolume => bgmVolume * MasterVoulme;
-    public float FxVoulme => fxVoulme * MasterVoulme;
+    public float BGMVolume => bgmVolume;
+    public float FxVoulme => fxVoulme ;
 
     private float masterVoulme;
     private float bgmVolume;
@@ -119,7 +119,7 @@ public class SoundManager : MonoBehaviour
         bgmVolume = newVolume;
         if (bgmAudioSourece != null)
         {
-            bgmAudioSourece.volume = BGMVolume;
+            bgmAudioSourece.volume = bgmVolume * MasterVoulme;
         }
     }
 
@@ -130,7 +130,7 @@ public class SoundManager : MonoBehaviour
         {
             if (fxAudioSource != null)
             {
-                fxAudioSource.volume = FxVoulme;
+                fxAudioSource.volume = fxVoulme * MasterVoulme;
             }
         }
     }
@@ -142,7 +142,7 @@ public class SoundManager : MonoBehaviour
             bgmAudioSourece = MakeAudioSourceObject("BGMObject");
         }
 
-        SetAudioSource(bgmAudioSourece, GetBGMSound(name), true, BGMVolume, false);
+        SetAudioSource(bgmAudioSourece, GetBGMSound(name), true, bgmVolume * MasterVoulme, false);
         bgmAudioSourece.Play();
     }
 
@@ -152,7 +152,7 @@ public class SoundManager : MonoBehaviour
         {
             if (!fxAudioSource.isPlaying)
             {
-                SetAudioSource(fxAudioSource, GetFxSound(name), false, FxVoulme, false);
+                SetAudioSource(fxAudioSource, GetFxSound(name), false, fxVoulme * MasterVoulme, false);
                 fxAudioSource.Play();
                 return;
             }

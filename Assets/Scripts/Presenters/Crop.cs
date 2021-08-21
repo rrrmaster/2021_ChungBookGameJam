@@ -4,6 +4,7 @@ using UnityEngine;
 using UniRx;
 using System;
 using System.Linq;
+using Zenject;
 
 public class Crop : MonoBehaviour
 {
@@ -12,11 +13,16 @@ public class Crop : MonoBehaviour
     public int id;
     public Sprite[] cropSprites;
     public int maxGrow;
+    public ReactiveProperty<DateTime> LastWater;
     public ReactiveProperty<int> Grow;
+    public bool IsTodayWashing;
     public ReadOnlyReactiveProperty<bool> IsRipening;
 
+    [Inject]
+    private GameModel gameModel;
     private void Awake()
     {
+        LastWater = new ReactiveProperty<DateTime>(DateTime.MinValue);
         Grow.Subscribe(value =>
         {
             Debug.Log(value);
@@ -24,6 +30,7 @@ public class Crop : MonoBehaviour
             int v = Mathf.Min(v1, (int)(v1 * ((float)value / maxGrow)));
             spriteRenderer.sprite = cropSprites[v];
         });
+        IsTodayWashing = false;
         IsRipening = Grow.Select(x => x >= maxGrow).ToReadOnlyReactiveProperty();
     }
 

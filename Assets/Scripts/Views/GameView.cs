@@ -29,6 +29,8 @@ public class GameView : MonoBehaviour
 
     [SerializeField]
     private Button shopOnButton;
+    [SerializeField]
+    private Button dungeonOnButton;
 
     [SerializeField]
     private Transform inventoryList;
@@ -42,6 +44,13 @@ public class GameView : MonoBehaviour
     [SerializeField]
     private Transform box;
     [SerializeField]
+    private Transform healthTransform;
+
+    [SerializeField]
+    private Sprite[] healths;
+
+
+    [SerializeField]
     private TextMeshProUGUI modeText;
 
     [SerializeField]
@@ -50,6 +59,10 @@ public class GameView : MonoBehaviour
     public IObservable<Unit> OnShopClick
     {
         get => shopOnButton.OnClickAsObservable();
+    }
+    public IObservable<Unit> OnDungeonClick
+    {
+        get => dungeonOnButton.OnClickAsObservable();
     }
     public DateTime DateText
     {
@@ -138,5 +151,12 @@ public class GameView : MonoBehaviour
         seq.Append(dimmed.DOFade(1, 0.4f).From(0));
         seq.Append(dimmed.DOFade(0, 0.4f).From(1).SetDelay(1));
         seq.Play();
+    }
+    public void SetHealth(int health)
+    {
+        for (int i = 0; i < healthTransform.childCount; i++)
+        {
+            healthTransform.GetChild(i).GetComponent<Image>().sprite = health > i ? healths[0] : healths[1];
+        }
     }
 }

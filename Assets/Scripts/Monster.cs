@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+using Zenject;
 
 public enum EMonsterState
 {
     Idle,
     Chase,
     Attack,
-    Dead
+    Dead,
+    None,
 }
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -163,10 +165,10 @@ public class Monster : MonoBehaviour
             attackTimeChecker = 0;
         }
     }
-
     private void OnDeadState()
     {
-
+        FindObjectOfType<PlayerController>().gameModel.Gold.Value += Random.Range(10, 30);
+        monsterState = EMonsterState.None;
     }
 
     private void Attack()
@@ -183,14 +185,11 @@ public class Monster : MonoBehaviour
 
 
         Collider2D[] colls = Physics2D.OverlapCircleAll(point, attackRange, whatIsPlayer);
-
+        Debug.Log("a");
         //충돌 발생시   
         foreach (var item in colls)
         {
-            PlayerController player;
-            item.gameObject.TryGetComponent<PlayerController>(out player);
-
-            if (player != null)
+            if (item.gameObject.TryGetComponent<PlayerController>(out var player))
             {
                 player.OnDamage(attackPower);
             }
