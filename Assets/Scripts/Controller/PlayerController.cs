@@ -13,13 +13,13 @@ public class PlayerController : MonoBehaviour
         Observable.EveryUpdate()
             .Select(_ => new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0))
             .Subscribe(v => Move(v));
-        
+
         Observable.EveryLateUpdate().Subscribe(_ => Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10));
     }
 
     private void Move(Vector2 velocity)
     {
-        if(velocity.sqrMagnitude> 0)
+        if (Mathf.Abs(velocity.x) > 0)
         {
             transform.GetChild(0).transform.localScale = new Vector3(-Mathf.Sign(velocity.x), 1);
         }

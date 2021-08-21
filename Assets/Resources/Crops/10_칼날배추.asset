@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 10
   ItemID: 13
-  BasePrice: 0
+  BasePrice: 100
   Name: "\uCE7C\uB0A0\uBC30\uCD94"
   Description: 
   Seasons: 0
-  HarvestSeasons: 3
+  HarvestSeasons: 2
   Icon: {fileID: 4734819778664054514, guid: a2398a483d9812544817f98368d78d73, type: 3}
   Animation:
   - {fileID: 21300104, guid: bd6d25ec0c12bab4b9a7ff3896042b11, type: 3}

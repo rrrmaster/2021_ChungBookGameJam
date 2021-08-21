@@ -8,7 +8,7 @@ public class ShopPresenter : IInitializable, IDisposable
     private readonly ShopModel shopModel;
 
 
-    private readonly CompositeDisposable compositeDisposable ;
+    private readonly CompositeDisposable compositeDisposable;
 
     public ShopPresenter(ShopView shopView, ShopModel shopModel)
     {
@@ -26,7 +26,7 @@ public class ShopPresenter : IInitializable, IDisposable
 
         foreach (var crop in crops)
         {
-            ShopItemModel item = new ShopItemModel() { Name = crop.Name,Icon = crop.Icon,ID = crop.ItemID };
+            ShopItemModel item = new ShopItemModel() { Name = crop.Name, Icon = crop.Icon, ID = crop.ItemID, Price = crop.BasePrice };
             shopModel.ShopItems.Add(item);
 
         }
@@ -36,5 +36,5 @@ public class ShopPresenter : IInitializable, IDisposable
         compositeDisposable.Dispose();
     }
 
-  
+
 }

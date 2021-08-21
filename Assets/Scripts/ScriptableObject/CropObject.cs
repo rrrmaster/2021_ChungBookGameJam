@@ -32,7 +32,13 @@ public class CropObject : ScriptableObject
 
     [Header("애니메이션")]
     public Sprite[] Animation;
+
+
+    [Header("아이템")]
+    public ItemObject[] ItemObjects;
 }
+
+    
 [System.Flags]
 public enum Season
 {

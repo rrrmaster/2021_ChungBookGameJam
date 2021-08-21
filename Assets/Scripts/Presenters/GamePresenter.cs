@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -42,21 +43,25 @@ public class GamePresenter : IInitializable, IDisposable
         gameModel.IsUseItem.Subscribe(value => gameView.UseItemMode(value));
         Observable.Interval(new TimeSpan(0, 0, 0, 5, 0)).Subscribe(_ => gameModel.Date.Value = gameModel.Date.Value.AddMinutes(10));
         Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.Q)).Subscribe(_ => OnInventoryShow());
+        Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.E)).Subscribe(_ => NextDay());
 
         Observable.EveryUpdate()
-
             .Where(_ => Input.anyKeyDown && Input.inputString.Length >= 1 && '1' <= Input.inputString[0] && Input.inputString[0] <= '9')
             .Select(_ => int.Parse(Input.inputString.Substring(0, 1)) - 1)
             .Where(p => gameModel.Items.ContainsKey(new Vector2Int(p, 0)))
             .Subscribe(value => UseItem(value));
 
 
+        Observable.EveryUpdate().Where(_ => Input.GetMouseButtonDown(0)).Subscribe(_ => Test1());
         Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.Escape)).Subscribe(_ => gameModel.IsUseItem.Value = false);
         Observable.EveryUpdate().Where(_ => gameModel.IsUseItem.Value).Subscribe(_ => Test());
-        Observable.EveryUpdate().Where(_ => gameModel.IsUseItem.Value).Where(_=>Input.GetMouseButtonDown(0)).Subscribe(_ => SetCrop());
+        Observable.EveryUpdate().Where(_ => gameModel.IsUseItem.Value).Where(_ => Input.GetMouseButtonDown(0)).Subscribe(_ => SetCrop());
 
     }
+    public Dictionary<Vector2Int, GameObject> map;
+
     private int number;
+
     private void Test()
     {
         var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -65,20 +70,37 @@ public class GamePresenter : IInitializable, IDisposable
         gameView.Box.position = vector3;
         gameView.Box.GetComponent<SpriteRenderer>().color = new Color(0, 1, 0, 0.5f);
     }
-
-    public Dictionary<Vector2Int, GameObject> map;
+    private void Test1()
+    {
+        var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var key = new Vector2Int(Mathf.FloorToInt(mouse.x + 0.5f), Mathf.FloorToInt(mouse.y - 0.5f));
+        if (map.ContainsKey(key))
+        {
+            var crop = map[key].GetComponent<Crop>();
+            if (crop.Grow.Value  >= crop.maxGrow)
+            {
+                var dropItems = Resources.LoadAll<CropObject>("Crops").FirstOrDefault(p => p.ID == crop.id);
+                foreach (var item in dropItems.ItemObjects)
+                {
+                    gameModel.AddItem(new Item { Count = 1, DateTime = gameModel.Date.Value, ID = ite.id });
+                    GameObject.Destroy(map[key].gameObject);
+                    map.Remove(key);
+                }
+            }
+        }
+    }
 
     private void SetCrop()
     {
         var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var pos = new Vector2(Mathf.FloorToInt(mouse.x + 0.5f) + 0.5f, Mathf.FloorToInt(mouse.y - 0.5f));
-        var key = new Vector2Int(Mathf.FloorToInt(mouse.x + 0.5f) , Mathf.FloorToInt(mouse.y - 0.5f));
-        if(!map.ContainsKey(key))
+        var key = new Vector2Int(Mathf.FloorToInt(mouse.x + 0.5f), Mathf.FloorToInt(mouse.y - 0.5f));
+        if (!map.ContainsKey(key))
         {
             Vector2Int vector2Int = new Vector2Int(number, 0);
             var item = gameModel.Items[vector2Int];
-            var crop = GameObject.Instantiate(Resources.Load<GameObject>("Crop"), new Vector3(pos.x, pos.y),Quaternion.identity);
-            var id = gameModel.ItemObjects[item.ID].CropID;
+            var crop = GameObject.Instantiate(Resources.Load<GameObject>("Crop"), new Vector3(pos.x, pos.y), Quaternion.identity);
+            var id = gameModel.ItemObjects.FirstOrDefault(p => p.ID == item.ID).CropID;
             crop.GetComponent<Crop>().SetData(id);
             map.Add(key, crop);
             if (item.Count > 1)
@@ -113,6 +135,10 @@ public class GamePresenter : IInitializable, IDisposable
     }
     public void NextDay()
     {
+        foreach (var item in map)
+        {
+            item.Value.GetComponent<Crop>().Grow.Value += 1;
+        }
         gameModel.NextDay();
     }
 
