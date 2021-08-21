@@ -43,8 +43,8 @@ public class GamePresenter : IInitializable, IDisposable
 
         gameModel.IsUseItem.Subscribe(value => gameView.UseItemMode(value));
         Observable.Interval(new TimeSpan(0, 0, 0, 5, 0)).Subscribe(_ => AddTime());
-        Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.Q)).Subscribe(_ => OnInventoryShow());
-        Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.E)).Subscribe(_ => NextDay());
+        Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.E)).Subscribe(_ => OnInventoryShow());
+        Observable.EveryUpdate().Where(_ => Input.GetKeyDown(KeyCode.U)).Subscribe(_ => NextDay());
 
         Observable.EveryUpdate()
             .Where(_ => Input.anyKeyDown && Input.inputString.Length >= 1 && '1' <= Input.inputString[0] && Input.inputString[0] <= '9')

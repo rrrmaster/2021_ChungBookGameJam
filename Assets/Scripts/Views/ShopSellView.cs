@@ -47,8 +47,27 @@ public class ShopSellView : MonoBehaviour, IPointerUpHandler
 
             Debug.Log("Mouse Click Button : Left"); 
         }
-        else if (eventData.button == PointerEventData.InputButton.Right) 
-        { 
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (gameModel.Items.ContainsKey(pos))
+            {
+                var item = gameModel.Items[pos];
+                var list = gameModel.StockItems.Where(p => p.SellID == item.ID).ToList();
+                if (list.Count > 0)
+                {
+                    gameModel.Gold.Value += list.First().Price * item.Count;
+                    gameModel.Items[pos] = item;
+           
+                }
+                else if (item.ID < 3)
+                {
+                    gameModel.Gold.Value += 5 * item.Count;
+                    gameModel.Items[pos] = item;
+            
+                }
+                gameModel.Items.Remove(pos);
+            }
+
             Debug.Log("Mouse Click Button : Right"); 
         }
 
