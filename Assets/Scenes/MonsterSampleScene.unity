@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22389073}
   - component: {fileID: 22389072}
+  - component: {fileID: 22389074}
   - component: {fileID: 22389071}
   m_Layer: 0
   m_Name: MonsterSample
@@ -194,15 +195,15 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1810331411
+  m_SortingLayer: 1
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300198, guid: 2a45f70e138296043bed68639e4a6080, type: 3}
+  m_Sprite: {fileID: 6167071470516247665, guid: 8763a26e0c1cd0b48980518ba9c0d2c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3333334, y: 2.6666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -222,6 +223,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &22389074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22389070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d5f37514c3264a42827fc24b1c08213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 22389072}
 --- !u!1 &93510940
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +436,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dateText: {fileID: 550549159}
   goldText: {fileID: 284764512}
+  timeText: {fileID: 0}
+  seasonText: {fileID: 0}
+  shopOnButton: {fileID: 0}
+  inventoryList: {fileID: 0}
+  clockImage: {fileID: 0}
+  clocks: []
+  box: {fileID: 0}
+  modeText: {fileID: 0}
 --- !u!1 &227423083
 GameObject:
   m_ObjectHideFlags: 0
@@ -67715,9 +67737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f8b095a6cfc5d46b72195710b3a7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  box: {fileID: 93510942}
   crop: {fileID: 1512069762213004024, guid: 510ffe9b819c56543b2d260a43debb80, type: 3}
-  gamePresenter: {fileID: 1688583455}
   cropTileMap: {fileID: 1273675078}
 --- !u!4 &1445932177
 Transform:
@@ -67790,7 +67810,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1688583456}
-  - component: {fileID: 1688583455}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -67798,19 +67817,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1688583455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688583454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59fcbd29b0f3777448d694ead8577ea5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameView: {fileID: 214980810}
 --- !u!4 &1688583456
 Transform:
   m_ObjectHideFlags: 0

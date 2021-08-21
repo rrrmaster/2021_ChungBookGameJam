@@ -13,7 +13,7 @@ public class MonsterScriptableObject : ScriptableObject
     [Header("추격범위")] [SerializeField] private float chaseRange;
     [Header("이동속도")] [SerializeField] private float moveSpeed;
 
-    [Header("애니메이터")] [SerializeField] private RuntimeAnimatorController animator;
+    [Header("애니메이터")] [SerializeField] private RuntimeAnimatorController animatorController;
 
     public string FullName => fullName;
     public float MaxHealth => maxHealth;
@@ -23,7 +23,7 @@ public class MonsterScriptableObject : ScriptableObject
     public float ChaseRange => chaseRange;
     public float MoveSpeed => moveSpeed;
 
-    public RuntimeAnimatorController Animator => animator;
+    public RuntimeAnimatorController AnimatorController => animatorController;
 
 
 }

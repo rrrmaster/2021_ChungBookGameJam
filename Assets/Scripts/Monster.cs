@@ -23,7 +23,8 @@ public class Monster : MonoBehaviour
     private float chaseRange;
     private float moveSpeed;
 
-    private RuntimeAnimatorController animator;
+    private RuntimeAnimatorController animatorController;
+    private Animator animator;
 
     [SerializeField] private float curHealth; //현제 체력
     [SerializeField] private EMonsterState monsterState = new EMonsterState(); //현제 상태\
@@ -49,15 +50,15 @@ public class Monster : MonoBehaviour
         {
             case EMonsterState.Idle:
                 OnIdleState();
-                CheckRange();
+                CheckStage();
                 break;
             case EMonsterState.Chase:
                 OnChaseState();
-                CheckRange();
+                CheckStage();
                 break;
             case EMonsterState.Attack:
                 OnAttackState();
-                CheckRange();
+                CheckStage();
                 break;
             case EMonsterState.Dead:
                 OnDeadState();
@@ -83,9 +84,10 @@ public class Monster : MonoBehaviour
 
     private void OnAttackState()
     {
-        if (attackTimeChecker <= attackSpeed)
+        if (attackTimeChecker >= attackSpeed)
         {
             //TODO 어택
+            animator.SetTrigger("Attack");
             attackTimeChecker = 0;
         }
     }
@@ -105,7 +107,7 @@ public class Monster : MonoBehaviour
         chaseRange = monsterScriptableObject.ChaseRange;
         moveSpeed = monsterScriptableObject.MoveSpeed;
 
-        animator = monsterScriptableObject.Animator;
+        animatorController = monsterScriptableObject.AnimatorController;
     }
 
     private void Initialization()
@@ -114,6 +116,9 @@ public class Monster : MonoBehaviour
         monsterState = EMonsterState.Idle;
         spriteRenderer = GetComponent<SpriteRenderer>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
+
+        animator = gameObject.AddComponent<Animator>();
+        animator.runtimeAnimatorController = animatorController;
 
         SetRandomDirection();
     }
@@ -140,18 +145,21 @@ public class Monster : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
-    private void CheckRange()
+    private void CheckStage()
     {
         if ((transform.position - target.position).sqrMagnitude < attackRange * attackRange)
         {
+            animator.SetBool("IsWalk", false);
             monsterState = EMonsterState.Attack;
         }
         else if ((transform.position - target.position).sqrMagnitude < chaseRange * chaseRange)
         {
+            animator.SetBool("IsWalk", true);
             monsterState = EMonsterState.Chase;
         }
         else
         {
+            animator.SetBool("IsWalk", false);
             monsterState = EMonsterState.Idle;
         }
     }
@@ -172,8 +180,8 @@ public class Monster : MonoBehaviour
 
     private void FlipSprite(Vector3 target)
     {
-        if (transform.position.x > target.x) spriteRenderer.flipX = true;
-        else spriteRenderer.flipX = false;
+        if (transform.position.x > target.x) spriteRenderer.flipX = false;
+        else spriteRenderer.flipX = true;
     }
 
     void OnDrawGizmosSelected()
