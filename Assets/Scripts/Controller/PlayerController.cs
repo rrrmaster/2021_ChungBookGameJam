@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
         washingTimeChecker += Time.deltaTime;
         if (Input.GetMouseButtonDown(0) && !gameModel.IsUseItem.Value)
         {
+            StartCoroutine(SetSpeedZero(1.5f));
             if (washingTimeChecker >= 1.5f)
             {
                 SoundManager.Instance.PlayFXSound("Water");
