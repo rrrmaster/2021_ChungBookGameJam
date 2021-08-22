@@ -162,6 +162,12 @@ public class PlayerController : MonoBehaviour
         {
             FindObjectOfType<DungeonManager>().QuitDungeon();
             gamePresenter.NextDay();
+            LoseGold();
         }
+    }
+
+    private void LoseGold()
+    {
+        gameModel.Gold.Value = gameModel.Gold.Value - (int)((float)gameModel.Gold.Value * 0.1f);
     }
 }

@@ -28632,7 +28632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 610928864}
   animator: {fileID: 2145701786}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 2145701787}
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 64
