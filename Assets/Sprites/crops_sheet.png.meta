@@ -1687,7 +1687,7 @@ TextureImporter:
       name: crops_sheet_5
       rect:
         serializedVersion: 2
-        x: 87
+        x: 85
         y: 321
         width: 20
         height: 32
@@ -1708,10 +1708,10 @@ TextureImporter:
       name: crops_sheet_6
       rect:
         serializedVersion: 2
-        x: 54
-        y: 320
+        x: 59
+        y: 321
         width: 20
-        height: 33
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1729,7 +1729,7 @@ TextureImporter:
       name: crops_sheet_7
       rect:
         serializedVersion: 2
-        x: 23
+        x: 30
         y: 321
         width: 20
         height: 32

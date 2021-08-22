@@ -216,7 +216,7 @@ public class GamePresenter : IInitializable, IDisposable
         {
             var value = gameModel.StockItems[i];
             value.OldPrice = value.Price;
-            value.Price = value.Price + Mathf.RoundToInt(value.Price * UnityEngine.Random.Range(-0.1f, 0.1f));
+            value.Price = value.Price + Mathf.RoundToInt(value.Price * UnityEngine.Random.Range(-0.15f, 0.20f));
             gameModel.StockItems[i] = value;
         }
         gameModel.NextDay();
