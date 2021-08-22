@@ -31,6 +31,8 @@ public class GameView : MonoBehaviour
     private Button shopOnButton;
     [SerializeField]
     private Button dungeonOnButton;
+    [SerializeField]
+    private Button optionOnButton;
 
     [SerializeField]
     private Transform inventoryList;
@@ -63,6 +65,10 @@ public class GameView : MonoBehaviour
     public IObservable<Unit> OnDungeonClick
     {
         get => dungeonOnButton.OnClickAsObservable();
+    }
+    public IObservable<Unit> OnOptionClick
+    {
+        get => optionOnButton.OnClickAsObservable();
     }
     public DateTime DateText
     {

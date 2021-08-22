@@ -39,6 +39,7 @@ public class Crop : MonoBehaviour
     {
         this.id = id;
         var cropObject = Resources.LoadAll<CropObject>("Crops").FirstOrDefault(p => p.ID == id);
+        maxGrow = cropObject.GrowDay;
         cropSprites = cropObject.Animation;
         Grow.SetValueAndForceNotify(0);
     }

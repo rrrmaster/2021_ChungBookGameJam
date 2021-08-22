@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 1
   ItemID: 4
   SellItemID: 24
-  BasePrice: 100
+  BasePrice: 70
   GrowDay: 7
   Name: "\uBC9B\uAF43\uC0C1\uCD94"
   Description: "\uBD04 \uC791\uBB3C, 7\uC77C \uD6C4 \uC218\uD655\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\r"
@@ -23,9 +23,10 @@ MonoBehaviour:
   HarvestSeasons: 2
   Icon: {fileID: 2749703584677109874, guid: a2398a483d9812544817f98368d78d73, type: 3}
   Animation:
-  - {fileID: -7815837348340922958, guid: 75112bb6ecee1744496e51b49e9e5c2b, type: 3}
-  - {fileID: -5565340475922699794, guid: 75112bb6ecee1744496e51b49e9e5c2b, type: 3}
-  - {fileID: -8402059799021083194, guid: 75112bb6ecee1744496e51b49e9e5c2b, type: 3}
+  - {fileID: -3341015766124478183, guid: 56bb070c4d210054f9986ec6f6b8466b, type: 3}
+  - {fileID: 8293737113987677130, guid: 56bb070c4d210054f9986ec6f6b8466b, type: 3}
+  - {fileID: -1667115207673575390, guid: 56bb070c4d210054f9986ec6f6b8466b, type: 3}
+  - {fileID: -1050344347266391005, guid: 56bb070c4d210054f9986ec6f6b8466b, type: 3}
   ItemObjects:
   - {fileID: 11400000, guid: 81553624cbc1fb34e8aef4f1d8c8f0cf, type: 2}
   - {fileID: 11400000, guid: 3d9fe51671a6a23409a9f1253051755c, type: 2}

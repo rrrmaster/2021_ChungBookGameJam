@@ -15,13 +15,15 @@ public class GamePresenter : IInitializable, IDisposable
     private readonly GameView gameView;
     private readonly GameModel gameModel;
     private readonly CompositeDisposable compositeDisposable;
+    private readonly GameOptionView gameOptionView;
     private readonly Setting setting;
-    public GamePresenter(GameView gameView, GameModel gameModel, ShopView shopView, InventoryView inventoryView,Setting setting)
+    public GamePresenter(GameView gameView, GameModel gameModel, ShopView shopView, InventoryView inventoryView,GameOptionView gameOptionView,Setting setting)
     {
         this.gameView = gameView;
         this.gameModel = gameModel;
         this.shopView = shopView;
         this.inventoryView = inventoryView;
+        this.gameOptionView = gameOptionView;
         this.setting = setting;
         map = new Dictionary<Vector2Int, GameObject>();
         compositeDisposable = new CompositeDisposable();
@@ -40,6 +42,7 @@ public class GamePresenter : IInitializable, IDisposable
 
         gameView.OnShopClick.Subscribe(_ => OnShopShow());
         gameView.OnDungeonClick.Subscribe(_ => OnDungeonShow());
+        gameView.OnOptionClick.Subscribe(_ => OnOptionShow());
 
         gameModel.Items.ObserveAdd().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottom(p));
         gameModel.Items.ObserveRemove().Where(p => p.Key.y == 0).Subscribe(p => gameView.SetBottom(p));
@@ -176,9 +179,13 @@ public class GamePresenter : IInitializable, IDisposable
     }
     private void OnDungeonShow()
     {
-        Debug.Log("dsasad");    
         SoundManager.Instance.PlayFXSound("Popup");
         GameObject.FindObjectOfType<DungeonManager>().OnClickDungeonButton();
+    }
+    private void OnOptionShow()
+    {
+        SoundManager.Instance.PlayFXSound("Popup");
+        gameOptionView.gameObject.SetActive(true);  
     }
     private void OnInventoryShow()
     {

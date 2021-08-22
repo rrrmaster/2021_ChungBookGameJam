@@ -24,9 +24,10 @@ MonoBehaviour:
   HarvestSeasons: 8
   Icon: {fileID: -4384379988036074178, guid: a2398a483d9812544817f98368d78d73, type: 3}
   Animation:
-  - {fileID: -7815837348340922958, guid: 75112bb6ecee1744496e51b49e9e5c2b, type: 3}
-  - {fileID: -5565340475922699794, guid: 75112bb6ecee1744496e51b49e9e5c2b, type: 3}
-  - {fileID: -8402059799021083194, guid: 75112bb6ecee1744496e51b49e9e5c2b, type: 3}
+  - {fileID: -7619998993992571308, guid: 56bb070c4d210054f9986ec6f6b8466b, type: 3}
+  - {fileID: -7007346878187747496, guid: 56bb070c4d210054f9986ec6f6b8466b, type: 3}
+  - {fileID: -2193481530006340119, guid: 56bb070c4d210054f9986ec6f6b8466b, type: 3}
+  - {fileID: 3681655959073892272, guid: 56bb070c4d210054f9986ec6f6b8466b, type: 3}
   ItemObjects:
   - {fileID: 11400000, guid: 922aecd1f1c58ef46a7323067a2302ac, type: 2}
   - {fileID: 11400000, guid: 4823e3f9fa455344ab890d268d8ce40c, type: 2}

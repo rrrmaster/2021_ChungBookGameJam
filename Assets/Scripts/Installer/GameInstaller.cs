@@ -16,8 +16,9 @@ public class GameInstaller : MonoInstaller<GameInstaller>
     [SerializeField]
     private TutorialView tutorialView;
     [SerializeField]
+    private GameOptionView gameOptionView;
+    [SerializeField]
     private ToolTip toolTip;
-
     [SerializeField]
     private Setting setting;
     public override void InstallBindings()
@@ -41,6 +42,10 @@ public class GameInstaller : MonoInstaller<GameInstaller>
 
         Container.Bind<TutorialView>().FromInstance(tutorialView).AsSingle();
         Container.BindInterfacesAndSelfTo<TutorialPresenter>().AsSingle();
+
+
+        Container.Bind<GameOptionView>().FromInstance(gameOptionView).AsSingle();
+        Container.BindInterfacesAndSelfTo<GameOptionPrensenter>().AsSingle();
     }
 
     [System.Serializable]
