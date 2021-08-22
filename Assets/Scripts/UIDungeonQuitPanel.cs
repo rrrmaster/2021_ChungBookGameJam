@@ -14,7 +14,11 @@ public class UIDungeonQuitPanel : MonoBehaviour
     {
         dungeonManager = FindObjectOfType<DungeonManager>();
 
-        yesButton.onClick.AddListener(() => dungeonManager.QuitDungeon());
+        yesButton.onClick.AddListener(() =>
+        {
+            dungeonManager.QuitDungeon();
+            gameObject.SetActive(false);
+        });
         noButton.onClick.AddListener(() => gameObject.SetActive(false));
     }
 }

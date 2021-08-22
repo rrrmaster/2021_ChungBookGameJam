@@ -22,12 +22,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackPower;
 
     private bool isDead = false;
+    private bool isInvincible = false;
     [Inject]
     public GameModel gameModel;
 
     [Inject]
     private GamePresenter gamePresenter;
-
 
     private float attackTimeChecker = 0;
     private float washingTimeChecker = 0;
@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
         washingTimeChecker += Time.deltaTime;
         if (Input.GetMouseButtonDown(0) && !gameModel.IsUseItem.Value)
         {
+            StartCoroutine(SetSpeedZero(1.5f));
             if (washingTimeChecker >= 1.5f)
             {
                 SoundManager.Instance.PlayFXSound("Water");
@@ -141,13 +142,33 @@ public class PlayerController : MonoBehaviour
         rigidbody.velocity = velocity.normalized * speed;
     }
 
+    private IEnumerator Invincible(float time)
+    {
+        isInvincible = true;
+        yield return new WaitForSeconds(time);
+        isInvincible = false;
+    }
+
+    public void SetPlayerInvincible()
+    {
+        StartCoroutine(Invincible(3f));
+    }
+
     public void OnDamage(float damage) // 피해를 받는 기능
     {
+        if (isInvincible) return;
+
         gameModel.Health.Value -= 1;
-        if(gameModel.Health.Value==0)
+        if (gameModel.Health.Value == 0)
         {
             FindObjectOfType<DungeonManager>().QuitDungeon();
             gamePresenter.NextDay();
+            LoseGold();
         }
+    }
+
+    private void LoseGold()
+    {
+        gameModel.Gold.Value = gameModel.Gold.Value - (int)((float)gameModel.Gold.Value * 0.1f);
     }
 }

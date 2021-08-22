@@ -18,7 +18,8 @@ MonoBehaviour:
   BasePrice: 100
   GrowDay: 14
   Name: "\uC6B0\uB2F4\uD30C\uB77C"
-  Description: 
+  Description: "\uACA8\uC6B8 \uC791\uBB3C, 14\uC77C \uD6C4 \uC218\uD655\uD560 \uC218
+    \uC788\uC2B5\uB2C8\uB2E4.\r"
   Seasons: 8
   HarvestSeasons: 8
   Icon: {fileID: 5460143083057462165, guid: a2398a483d9812544817f98368d78d73, type: 3}

@@ -35,17 +35,18 @@ public class DungeonManager : MonoBehaviour
 
         seq.OnStart(() => { dimmed.gameObject.SetActive(true); });
         seq.OnComplete(() => { dimmed.gameObject.SetActive(false); }).Play();
-        seq.Append(dimmed.DOFade(1, 0.4f).From(0));
+        seq.Append(dimmed.DOFade(1, 0).From(0));
         seq.Append(dimmed.DOFade(0, 0.4f).From(1).SetDelay(1));
         seq.Play();
 
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         playerController.transform.position = new Vector3(-32.5f, -51.6f, 0);
+        playerController.SetPlayerInvincible();
 
         onStage = true;
 
         int randnum = Random.Range(0, monsterSpawner.monsterScriptableObject.Length);
-        foreach (var item in monsterSpawner.MakeMonster(randnum, 5, new Vector3(-31.51f, -54.17f, 0), new Vector3(-18.7f, -49.98f, 0)))
+        foreach (var item in monsterSpawner.MakeMonster(randnum, 5, new Vector3(-27.93833f, -55.10243f, 0), new Vector3(-19.68673f, -48.13082f, 0)))
         {
             item.deathEvent.AddListener(() => monsterList.Remove(item));
             monsterList.Add(item);
@@ -65,7 +66,7 @@ public class DungeonManager : MonoBehaviour
 
     public void QuitDungeon()
     {
-        monsterList.ForEach(p=>Destroy(p.gameObject));
+        monsterList.ForEach(p => Destroy(p.gameObject));
         monsterList.Clear();
 
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
