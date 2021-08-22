@@ -55,7 +55,15 @@ public class ShopItemView : MonoBehaviour, IPointerMoveHandler, IPointerEnterHan
 
         ToolTip toolTip1 = FindObjectOfType<ToolTip>(true);
         toolTip1.SetPosition(eventData.position);
-        toolTip1.SetText(stockItemModel.Name, stockItemModel.De);
+        var seasons = stockItemModel.Seasons;
+        var v = new Dictionary<Season, string>() {
+                { Season.Spring, "<color=#F17C69>봄</color>"},
+                { Season.Summer, "<color=#36A803>여름</color>"},
+                { Season.Autumn, "<color=#BF1D10>가을</color>"},
+                { Season.Winter, "<color=#45F8FF>겨울</color>"},
+            }[seasons];
+        var de = $"계절 : {v}\n수확 시기 : {stockItemModel.GrowDay}일";
+        toolTip1.SetText(stockItemModel.Name, de);
     }
 
     internal void SetPrice(int price, int oldPrice)

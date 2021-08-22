@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -26,7 +27,7 @@ public class GameModel
         Health = new ReactiveProperty<int>(5);
         Date = new ReactiveProperty<DateTime>(new DateTime(100, 1, 1,6,0,0));
         ItemObjects = Resources.LoadAll<ItemObject>("Items");
-        CropObjects = Resources.LoadAll<CropObject>("Crops");
+        CropObjects = Resources.LoadAll<CropObject>("Crops").OrderBy(p=>p.ID).ToArray();
 
         var v = new Season[4] {
         global::Season.Spring,
@@ -91,6 +92,8 @@ public struct StockItemModel
     public int ID { get; internal set; }
     public int OldPrice { get; internal set; }
     public int SellID { get; internal set; }
+    public Season Seasons { get; internal set; }
+    public int GrowDay { get; internal set; }
 }
 [Serializable]
 public struct Item

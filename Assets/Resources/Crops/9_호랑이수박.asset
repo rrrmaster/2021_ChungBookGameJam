@@ -16,6 +16,7 @@ MonoBehaviour:
   ItemID: 12
   SellItemID: 32
   BasePrice: 100
+  GrowDay: 13
   Name: "\uD638\uB791\uC774\uC218\uBC15"
   Description: 
   Seasons: 2

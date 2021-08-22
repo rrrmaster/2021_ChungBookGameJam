@@ -12,7 +12,11 @@ public class Bed : MonoBehaviour
     private void Update()
     {
         if(isEnter && Input.GetKeyDown(KeyCode.Space))
+        {
+
+            SoundManager.Instance.PlayFXSound("Bed");
             gamePresenter.NextDay();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

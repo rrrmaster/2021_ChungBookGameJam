@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: "38_\uC6B0\uB2F4\uD30C\uB77C \uC5F4\uB9E4"
   m_EditorClassIdentifier: 
   ID: 38
-  Name: "\uD3ED\uD0C4\uAC15\uB0AD\uCF69 \uC528\uC557"
-  Description: asdasdas
+  Name: "\uC6B0\uB2F4\uD30C\uB77C \uC5F4\uB9E4"
+  Description: 
   Icon: {fileID: 5460143083057462165, guid: a2398a483d9812544817f98368d78d73, type: 3}
   IsCrop: 0
   CropID: 0

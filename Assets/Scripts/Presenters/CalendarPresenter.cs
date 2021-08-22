@@ -33,6 +33,7 @@ public class CalendarPresenter : IInitializable, IDisposable
 
     public void ShowCalendar()
     {
+        SoundManager.Instance.PlayFXSound("Calendar");
         calendarView.gameObject.SetActive(true);
     }
     public void Dispose()

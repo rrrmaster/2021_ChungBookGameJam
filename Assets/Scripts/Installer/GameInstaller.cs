@@ -30,17 +30,17 @@ public class GameInstaller : MonoInstaller<GameInstaller>
 
 
         Container.Bind<ShopView>().FromInstance(shopView).AsSingle();
-        Container.BindInterfacesTo<ShopPresenter>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ShopPresenter>().AsSingle();
         Container.Bind<ShopModel>().AsSingle();
 
         Container.Bind<InventoryView>().FromInstance(inventoryView).AsSingle();
-        Container.BindInterfacesTo<InventoryPresenter>().AsSingle();
+        Container.BindInterfacesAndSelfTo<InventoryPresenter>().AsSingle();
 
         Container.Bind<CalendarView>().FromInstance(calendarView).AsSingle();
-        Container.BindInterfacesTo<CalendarPresenter>().AsSingle();
+        Container.BindInterfacesAndSelfTo<CalendarPresenter>().AsSingle();
 
         Container.Bind<TutorialView>().FromInstance(tutorialView).AsSingle();
-        Container.BindInterfacesTo<TutorialPresenter>().AsSingle();
+        Container.BindInterfacesAndSelfTo<TutorialPresenter>().AsSingle();
     }
 
     [System.Serializable]

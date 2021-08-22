@@ -31,9 +31,9 @@ public class ShopPresenter : IInitializable, IDisposable
         gameModel.StockItems.ObserveReplace().Subscribe(p => shopView.ChangeShopItem(p));
         shopView.OnShopCloseClick.Subscribe(_ => shopView.gameObject.SetActive(false));
 
-        var crops = Resources.LoadAll<CropObject>("Crops");
-        foreach (var crop in crops)
+        foreach (var crop in gameModel.CropObjects)
         {
+            
             StockItemModel item = new StockItemModel() {
                 Name = crop.Name,
                 Icon = crop.Icon,
@@ -41,7 +41,10 @@ public class ShopPresenter : IInitializable, IDisposable
                 De = crop.Description,
                 Price = crop.BasePrice, 
                 OldPrice = crop.BasePrice,
-                SellID = crop.SellItemID
+                SellID = crop.SellItemID,
+                Seasons = crop.Seasons,
+                GrowDay = crop.GrowDay,
+
             };
             gameModel.StockItems.Add(item);
 

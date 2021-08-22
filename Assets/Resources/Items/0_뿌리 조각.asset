@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   Name: "\uBFCC\uB9AC \uC870\uAC01"
-  Description: asdasdas
+  Description: 
   Icon: {fileID: -4327908169705951823, guid: a2398a483d9812544817f98368d78d73, type: 3}
   IsCrop: 0
   CropID: 0

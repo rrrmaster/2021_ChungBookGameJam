@@ -13,6 +13,8 @@ public class CropObject : ScriptableObject
     [Header("기본 가격")]
     public int BasePrice;
 
+    [Header("성장 기한")]
+    public int GrowDay;
 
 
 
