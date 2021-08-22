@@ -2,6 +2,7 @@ using UniRx;
 using UnityEngine;
 using System.Collections;
 using Zenject;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -159,6 +160,8 @@ public class PlayerController : MonoBehaviour
         if (isInvincible) return;
 
         gameModel.Health.Value -= 1;
+        spriteRenderer.material.DOColor(Color.red, 0.2f).OnComplete(() => spriteRenderer.material.DOColor(Color.white, 0.2f));
+
         if (gameModel.Health.Value == 0)
         {
             FindObjectOfType<DungeonManager>().QuitDungeon();

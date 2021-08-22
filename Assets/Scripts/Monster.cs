@@ -167,7 +167,7 @@ public class Monster : MonoBehaviour
     }
     private void OnDeadState()
     {
-        FindObjectOfType<PlayerController>().gameModel.Gold.Value += Random.Range(10, 30);
+        FindObjectOfType<PlayerController>().gameModel.Gold.Value += Random.Range(4, 8);
         monsterState = EMonsterState.None;
     }
 
