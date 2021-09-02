@@ -13,3 +13,6 @@
 2. Zenject : [링크](https://github.com/modesttree/Zenject)
 3. UnmaskForUGUI : [링크](https://github.com/mob-sakai/UnmaskForUGUI)
 4. DoTween : [링크](https://github.com/Demigiant/dotween)
+
+# 기타
+![](https://raw.githubusercontent.com/rrrmaster/2021_ChungBookGameJam/master/Game_ScreenShot.png)
